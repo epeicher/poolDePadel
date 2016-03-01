@@ -11,13 +11,24 @@ const style = {
   display: 'inline-block',
 };
 
-const PaperExampleSimple = () => (
-  <div>
-  	<GridList padding={10}>
-    <Paper zDepth={2} children={<ListAvailablePlayers />} />
-    <Paper zDepth={2} children={<ListAvailablePlayers />} />
-    </GridList>
-  </div>
-);
+const PanelPlayers = () => {
+    
+    const players = [
+      {name: "Brendan Lim", img:"http://placecage.com/g/128/128"},
+      {name: "Eric Hoffman", img:"http://fillmurray.com/128/128"},
+      {name: "Grace Ng", img:"http://placecage.com/128/128"},
+      {name: "Kerem Suer", img:"http://fillmurray.com/g/128/128"},
+      {name: "Raquel Parrado", img:"http://lorempixel.com/128/128"}
+    ];
+    
+    return (
+        <div>
+            <GridList padding={10}>
+                <Paper zDepth={2} children={<ListAvailablePlayers players={players} />} />
+                <Paper zDepth={2} children={<ListAvailablePlayers players={players} />} />
+            </GridList>
+        </div>
+    )
+};
 
-export default PaperExampleSimple;
+export default PanelPlayers;

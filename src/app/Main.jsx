@@ -10,7 +10,7 @@ import {deepOrange500} from 'material-ui/lib/styles/colors';
 import FlatButton from 'material-ui/lib/flat-button';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
-import PaperExampleSimple from './PanelPlayers'
+import PanelPlayers from './PanelPlayers'
 
 const styles = {
   container: {
@@ -68,9 +68,8 @@ class Main extends React.Component {
           >
             1-2-3-4-5
           </Dialog>
-          <h1>material-ui</h1>
-          <h2>example project</h2>
-          <PaperExampleSimple />
+          <h1>Convocatoria</h1>          
+          <PanelPlayers />
         </div>
       </MuiThemeProvider>
     );

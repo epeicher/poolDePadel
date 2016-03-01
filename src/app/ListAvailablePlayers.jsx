@@ -4,24 +4,17 @@ import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import Divider from 'material-ui/lib/divider';
 import CommunicationChatBubble from 'material-ui/lib/svg-icons/communication/chat-bubble';
+import { SelectableContainerEnhance } from 'material-ui/lib/hoc/selectable-enhance';
 
 class ListAvailablePlayers extends React.Component { 
 
   render() {
 
-    const players = [
-      {name: "Brendan Lim", img:"http://placecage.com/g/128/128"},
-      {name: "Eric Hoffman", img:"http://placecage.com/g/128/128"},
-      {name: "Grace Ng", img:"http://placecage.com/g/128/128"},
-      {name: "Kerem Suer", img:"http://placecage.com/g/128/128"},
-      {name: "Raquel Parrado", img:"http://placecage.com/g/128/128"}
-    ];
-
     return (
       <div>
-      <List subheader="Recent chats">
+        <List subheader="Jugadores disponibles">
         {    
-          players.map((player) => {
+          this.props.players.map((player) => {
             return (
               <ListItem
                 key={player.name}
