@@ -7,7 +7,18 @@ import CommunicationChatBubble from 'material-ui/lib/svg-icons/communication/cha
 import { SelectableContainerEnhance } from 'material-ui/lib/hoc/selectable-enhance';
 
 class ListAvailablePlayers extends React.Component { 
-
+    
+    constructor(){
+        super();
+        this.handleClick = this.handleClick.bind(this);
+    }
+    
+    handleClick(e,index) {
+        this.props.onPlayerClicked (
+             e.currentTarget.id
+        );
+    }
+    
   render() {
 
     return (
@@ -17,10 +28,14 @@ class ListAvailablePlayers extends React.Component {
           this.props.players.map((player) => {
             return (
               <ListItem
+                id={player.name}
                 key={player.name}
+                ref="player"
+                value={player.name}
                 primaryText={player.name}
                 leftAvatar={<Avatar src={player.img} />}
                 rightIcon={<CommunicationChatBubble />}
+                onTouchTap={this.handleClick}
               />
             );        
           })
