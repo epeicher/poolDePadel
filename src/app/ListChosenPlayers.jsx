@@ -5,7 +5,7 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import Divider from 'material-ui/lib/divider';
 import CommunicationChatBubble from 'material-ui/lib/svg-icons/communication/chat-bubble';
 import { SelectableContainerEnhance } from 'material-ui/lib/hoc/selectable-enhance';
-import {deepRed500} from 'material-ui/lib/styles/colors';
+import {limeA400} from 'material-ui/lib/styles/colors';
 import Checkbox from 'material-ui/lib/checkbox';
 
 class ListChosenPlayers extends React.Component { 
@@ -25,9 +25,12 @@ class ListChosenPlayers extends React.Component {
 
   render() {
 
-    const mystyle = {
-        color: deepRed500
+    const styleSelected = {
+        backgroundColor:limeA400
     };
+    
+    const styleStandard = {};
+
     return (
       <div>
         <List subheader="Jugadores convocados">
@@ -37,7 +40,7 @@ class ListChosenPlayers extends React.Component {
               console.log(player.confirmed);
             return (
               <ListItem
-                style={mystyle}
+                style={player.confirmed ? styleSelected : styleStandard}
                 key={player.name}
                 id={player.name}
                 primaryText={player.name}
