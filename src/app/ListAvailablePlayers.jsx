@@ -4,7 +4,7 @@ import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import Divider from 'material-ui/lib/divider';
 import CommunicationChatBubble from 'material-ui/lib/svg-icons/social/person';
-import {green200} from 'material-ui/lib/styles/colors';
+import {tealA700} from 'material-ui/lib/styles/colors';
 
 class ListAvailablePlayers extends React.Component { 
     
@@ -22,7 +22,7 @@ class ListAvailablePlayers extends React.Component {
   render() {
 
     const styleSelected = {
-        backgroundColor:green200
+        backgroundColor:tealA700
     };
     
     const styleStandard = {};
