@@ -26,18 +26,30 @@ class PanelPlayers extends React.Component {
     ];    
 
     this.onSelectedPlayer = this.onSelectedPlayer.bind(this);
-
+    this.onPlayerConfirmed = this.onPlayerConfirmed.bind(this);
+    
     this.state = {
-	   selectedPlayers: []
+        selectedPlayers: []
     };
+
   }
+  
+    
 
   onSelectedPlayer(playerName) {
 	var newPlayers = this.state.selectedPlayers;
     if(!newPlayers.find(p => p.name === playerName)) {
-	   newPlayers.push(this.availablePlayers.find(p => p.name === playerName));
+        let selectedPlayer = this.availablePlayers.find(p => p.name === playerName);
+        selectedPlayer.selected = true;
+	   newPlayers.push(selectedPlayer);
     }
 	this.setState({selectedPlayers: newPlayers});
+  }
+  
+  onPlayerConfirmed(playerName) {
+      var player = this.state.selectedPlayers.find(p => p.name === playerName);
+      if(player) player.confirmed = true;
+      this.setState({selectedPlayers: this.state.selectedPlayers})
   }
 
   render() {
@@ -46,7 +58,7 @@ class PanelPlayers extends React.Component {
         <div>
             <GridList padding={10}>
                 <Paper zDepth={2} children={<ListAvailablePlayers players={this.availablePlayers} onPlayerClicked={this.onSelectedPlayer} />} />
-                <Paper zDepth={2} children={<ListChosenPlayers selectedPlayers={this.state.selectedPlayers} />} />
+                <Paper zDepth={2} children={<ListChosenPlayers selectedPlayers={this.state.selectedPlayers} onPlayerConfirmed={this.onPlayerConfirmed} />} />
             </GridList>
         </div>
     )
