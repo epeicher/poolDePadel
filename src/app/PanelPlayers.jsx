@@ -17,19 +17,11 @@ class PanelPlayers extends React.Component {
     
   constructor() {
     super();
+
+    this.handleSelectedPlayer = this.handleSelectedPlayer.bind(this);
+    this.handlePlayerConfirmed = this.handlePlayerConfirmed.bind(this);
     
-    // const availablePlayers = [
-    //   {name: "Brendan Lim", img:"http://placecage.com/g/128/128"},
-    //   {name: "Eric Hoffman", img:"http://fillmurray.com/128/128"},
-    //   {name: "Grace Ng", img:"http://placecage.com/128/128"},
-    //   {name: "Kerem Suer", img:"http://fillmurray.com/g/128/128"},
-    //   {name: "Raquel Parrado", img:"http://lorempixel.com/128/128"}
-    // ];    
-    
-    this.onSelectedPlayer = this.onSelectedPlayer.bind(this);
-    this.onPlayerConfirmed = this.onPlayerConfirmed.bind(this);
-    
-    this.playersRepository = new PlayersRepository();
+    this.firebaseRef = new Firebase('https://mypooldepadel.firebaseio.com/');
     
     this.state = {
         availablePlayers: [],
@@ -37,29 +29,39 @@ class PanelPlayers extends React.Component {
     };
 
   }
+
+  bindAvailablePlayers() {
+    this.firebaseRef.child('availablePlayers').on("value", (snapshot) => {
+        this.setState({
+            availablePlayers: snapshot.val()
+        });
+    });
+  }
+
+  bindSelectedPlayers() {
+     this.firebaseRef.child('matches/0/selectedPlayers')
+        .on("value", (snapshot) => {
+            let selPlayers = [];
+            snapshot.forEach(data => {selPlayers.push(data.val())});
+            console.log(selPlayers);
+           this.setState({
+                selectedPlayers: selPlayers
+            });      
+    });
+  }
   
   componentDidMount() {
-    this.playersRepository.getPlayersPromise()
-	.then((data => {
-		this.setState({
-		    availablePlayers: data,
-		    selectedPlayers: []
-		});
-		}).bind(this));
+    this.bindAvailablePlayers();
+    this.bindSelectedPlayers();
   }
-    
 
-  onSelectedPlayer(playerName) {
-	var newPlayers = this.state.selectedPlayers;
-    if(!newPlayers.find(p => p.name === playerName)) {
-        let selectedPlayer = this.state.availablePlayers.find(p => p.name === playerName);
-        selectedPlayer.selected = true;
-	   newPlayers.push(selectedPlayer);
-    }
-	this.setState({selectedPlayers: newPlayers});
+  handleSelectedPlayer(playerName) {
+
+    let selectedPlayer = this.state.availablePlayers.find(p => p.name === playerName);
+    this.firebaseRef.child('matches/0/selectedPlayers').push(selectedPlayer);
   }
   
-  onPlayerConfirmed(playerName) {
+  handlePlayerConfirmed(playerName) {
       var player = this.state.selectedPlayers.find(p => p.name === playerName);
       if(player) player.confirmed = true;
       this.setState({selectedPlayers: this.state.selectedPlayers})
@@ -70,8 +72,8 @@ class PanelPlayers extends React.Component {
     return (
         <div>
             <GridList padding={10}>
-                <Paper zDepth={2} children={<ListAvailablePlayers players={this.state.availablePlayers} onPlayerClicked={this.onSelectedPlayer} />} />
-                <Paper zDepth={2} children={<ListChosenPlayers selectedPlayers={this.state.selectedPlayers} onPlayerConfirmed={this.onPlayerConfirmed} />} />
+                <Paper zDepth={2} children={<ListAvailablePlayers players={this.state.availablePlayers} onPlayerClicked={this.handleSelectedPlayer} />} />
+                <Paper zDepth={2} children={<ListChosenPlayers selectedPlayers={this.state.selectedPlayers} onPlayerConfirmed={this.handlePlayerConfirmed} />} />
             </GridList>
         </div>
     )

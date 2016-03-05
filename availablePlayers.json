@@ -1,0 +1,22 @@
+{
+	"availablePlayers": [
+		{"name": "Brendan Lim", "img":"http://placecage.com/g/128/128"},
+		{"name": "Eric Hoffman", "img":"http://fillmurray.com/128/128"},
+		{"name": "Grace Ng", "img":"http://placecage.com/128/128"},
+		{"name": "Kerem Suer", "img":"http://fillmurray.com/g/128/128"},
+		{"name": "Raquel Parrado", "img":"http://lorempixel.com/128/128"},
+		{"name": "Peter Parrot", "img":"http://lorempixel.com/128/128"},
+		{"name": "Johny Mnemonic", "img":"http://lorempixel.com/128/128"},
+		{"name": "Jack Jitter", "img":"http://lorempixel.com/128/128"}
+	],
+	"matches": [
+		{
+			"dateMatch":"2016-03-10T00:00:00.000Z",
+			"selectedPlayers": [
+				{"name": "Eric Hoffman", "img":"http://fillmurray.com/128/128"},
+				{"name": "Grace Ng", "img":"http://placecage.com/128/128"}
+			]
+		}
+	]
+}    
+
