@@ -36,8 +36,6 @@ class ListChosenPlayers extends React.Component {
         <List subheader="Jugadores convocados">
         {		
           this.props.selectedPlayers.map((player) => {
-              console.log(player);
-              console.log(player.confirmed);
             return (
               <ListItem
                 style={player.confirmed ? styleSelected : styleStandard}
