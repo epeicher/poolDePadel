@@ -15,3 +15,6 @@ icon-builder/jsx
 
 # OS files
 .DS_STORE
+
+# Log files
+firebase-debug.log
