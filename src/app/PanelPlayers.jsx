@@ -32,8 +32,10 @@ class PanelPlayers extends React.Component {
 
   bindAvailablePlayers() {
     this.firebaseRef.child('availablePlayers').on("value", (snapshot) => {
+      let avaPlayers = [];
+      snapshot.forEach(data => {avaPlayers.push(data.val())});
         this.setState({
-            availablePlayers: snapshot.val()
+            availablePlayers: avaPlayers
         });
     });
   }
@@ -42,8 +44,11 @@ class PanelPlayers extends React.Component {
      this.firebaseRef.child('matches/0/selectedPlayers')
         .on("value", (snapshot) => {
             let selPlayers = [];
-            snapshot.forEach(data => {selPlayers.push(data.val())});
-            console.log(selPlayers);
+            snapshot.forEach(data => {
+                let player = data.val();
+                player.key = data.key();
+                selPlayers.push(player);
+            });
            this.setState({
                 selectedPlayers: selPlayers
             });      
@@ -56,9 +61,11 @@ class PanelPlayers extends React.Component {
   }
 
   handleSelectedPlayer(playerName) {
-
-    let selectedPlayer = this.state.availablePlayers.find(p => p.name === playerName);
-    this.firebaseRef.child('matches/0/selectedPlayers').push(selectedPlayer);
+    this.firebaseRef.child('availablePlayers/'+playerName).update({selected:true});
+    if(!this.state.selectedPlayers.find(p => p.name === playerName)){
+      let selectedPlayer = this.state.availablePlayers.find(p => p.name === playerName);
+      this.firebaseRef.child('matches/0/selectedPlayers').push(selectedPlayer);
+    }
   }
   
   handlePlayerConfirmed(playerName) {
