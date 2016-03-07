@@ -32,7 +32,7 @@ class PanelPlayers extends React.Component {
   }
 
   bindAvailablePlayers() {
-    this.playersRepo.getPlayers().then(data => {
+    this.playersRepo.getPlayers(data => {
       this.setState({
         availablePlayers: data
       });
@@ -40,7 +40,7 @@ class PanelPlayers extends React.Component {
   }
 
   bindSelectedPlayers() {
-    this.playersRepo.getSelectedPlayers().then(data => {
+    this.playersRepo.getSelectedPlayers(data => {
       this.setState({
         selectedPlayers: data
       });      
@@ -50,6 +50,11 @@ class PanelPlayers extends React.Component {
   componentDidMount() {
     this.bindAvailablePlayers();
     this.bindSelectedPlayers();
+  }
+
+  
+  componentWillUnmount() {
+    this.playersRepo.abort();
   }
 
   handleSelectedPlayer(playerName) {
