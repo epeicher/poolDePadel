@@ -20,8 +20,10 @@ class PlayersRepository {
 		.on("value", (snapshot) => {
 			let selectedPlayers = [];
 			snapshot.forEach(match => {
-				match.ref().child('selectedPlayers').on("value", sp => {
-					sp.forEach(data => {selectedPlayers.push(data.val())});
+				match.ref().child('selectedPlayers').once("value", sp => {
+					sp.forEach(data => {
+                        selectedPlayers.push(data.val())
+                    });
 				});
 			});
 			cb(selectedPlayers);
