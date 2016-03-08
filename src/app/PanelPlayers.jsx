@@ -21,7 +21,6 @@ class PanelPlayers extends React.Component {
     this.handleSelectedPlayer = this.handleSelectedPlayer.bind(this);
     this.handlePlayerConfirmed = this.handlePlayerConfirmed.bind(this);
     
-    this.firebaseRef = new Firebase('https://mypooldepadel.firebaseio.com/'); // Temporary until refactoring
     this.playersRepo = new PlayersRepository();
     
     this.state = {
@@ -32,19 +31,19 @@ class PanelPlayers extends React.Component {
   }
 
   bindAvailablePlayers() {
-    this.playersRepo.getPlayers(data => {
+    this.playersRepo.getPlayers((data => {
       this.setState({
         availablePlayers: data
       });
-    });
+    }).bind(this));
   }
 
   bindSelectedPlayers() {
-    this.playersRepo.getSelectedPlayers(data => {
+    this.playersRepo.getSelectedPlayers((data => {
       this.setState({
         selectedPlayers: data
       });      
-    });
+    }).bind(this));
   }
   
   componentDidMount() {
