@@ -4,6 +4,7 @@ import Paper from 'material-ui/lib/paper';
 import ListAvailablePlayers from './ListAvailablePlayers';
 import ListChosenPlayers from './ListChosenPlayers';
 import PlayersRepository from './PlayersRepository';
+import dragula from 'dragula';
 
 const style = {
   height: 100,
@@ -22,7 +23,7 @@ class PanelPlayers extends React.Component {
     this.handlePlayerConfirmed = this.handlePlayerConfirmed.bind(this);
     
     this.playersRepo = new PlayersRepository();
-    
+
     this.state = {
         availablePlayers: [],
         selectedPlayers: []
@@ -49,6 +50,8 @@ class PanelPlayers extends React.Component {
   componentDidMount() {
     this.bindAvailablePlayers();
     this.bindSelectedPlayers();
+    dragula([document.querySelector('#left'), document.querySelector('#right')]);
+    
   }
 
   
@@ -70,7 +73,10 @@ class PanelPlayers extends React.Component {
         <div>
             <GridList padding={10}>
                 <Paper zDepth={2} children={<ListAvailablePlayers players={this.state.availablePlayers} onPlayerClicked={this.handleSelectedPlayer} />} />
-                <Paper zDepth={2} children={<ListChosenPlayers selectedPlayers={this.state.selectedPlayers} onPlayerConfirmed={this.handlePlayerConfirmed} />} />
+                <Paper zDepth={2} children={
+                  <ListChosenPlayers selectedPlayers={this.state.selectedPlayers} 
+                  onPlayerConfirmed={this.handlePlayerConfirmed} />} 
+                />
             </GridList>
         </div>
     )

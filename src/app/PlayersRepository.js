@@ -56,7 +56,6 @@ class PlayersRepository {
       });
 	}
 
-
 	abort() {
 		this.firebaseRef.off();
 	}

@@ -7,6 +7,7 @@ import CommunicationChatBubble from 'material-ui/lib/svg-icons/communication/cha
 import { SelectableContainerEnhance } from 'material-ui/lib/hoc/selectable-enhance';
 import {limeA400} from 'material-ui/lib/styles/colors';
 import Checkbox from 'material-ui/lib/checkbox';
+import Toggle from 'material-ui/lib/toggle'
 
 class ListChosenPlayers extends React.Component { 
     
@@ -19,9 +20,13 @@ class ListChosenPlayers extends React.Component {
          this.props.onPlayerConfirmed (
               e.target.parentNode.parentNode.id
          );
-        return true;
     }
     
+    onUnselected(e) {
+      this.props.onPlayerRejecting (
+        e.target.parentNode.parentNode.id,
+        e.target.checked)
+    }
 
   render() {
 
@@ -38,11 +43,10 @@ class ListChosenPlayers extends React.Component {
           this.props.selectedPlayers.map((player) => {
             return (
               <ListItem
-                style={player.confirmed ? styleSelected : styleStandard}
+                //style={player.confirmed ? styleSelected : styleStandard}
                 key={player.name}
                 id={player.name}
                 primaryText={player.name}
-                rightAvatar={<Avatar src={player.img} />}
                 leftCheckbox={<Checkbox onCheck={this.playerConfirmed} checked={player.confirmed} />}                       
                 disabled={player.confirmed}         
               />
