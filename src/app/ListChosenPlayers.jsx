@@ -38,7 +38,7 @@ class ListChosenPlayers extends React.Component {
 
     return (
       <div>
-        <List subheader="Jugadores convocados">
+        <List id={this.props.containerId} subheader="Jugadores convocados">
         {		
           this.props.selectedPlayers.map((player) => {
             return (

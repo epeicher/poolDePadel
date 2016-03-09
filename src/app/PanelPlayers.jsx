@@ -4,7 +4,7 @@ import Paper from 'material-ui/lib/paper';
 import ListAvailablePlayers from './ListAvailablePlayers';
 import ListChosenPlayers from './ListChosenPlayers';
 import PlayersRepository from './PlayersRepository';
-import dragula from 'dragula';
+import DragAndDropService from './dragAndDropService';
 
 const style = {
   height: 100,
@@ -23,6 +23,7 @@ class PanelPlayers extends React.Component {
     this.handlePlayerConfirmed = this.handlePlayerConfirmed.bind(this);
     
     this.playersRepo = new PlayersRepository();
+    this.dragAndDropService = new DragAndDropService();
 
     this.state = {
         availablePlayers: [],
@@ -50,8 +51,7 @@ class PanelPlayers extends React.Component {
   componentDidMount() {
     this.bindAvailablePlayers();
     this.bindSelectedPlayers();
-    dragula([document.querySelector('#left'), document.querySelector('#right')]);
-    
+    this.dragAndDropService.configureContainers(document.getElementById('containerLeft'), document.getElementById('containerRight'));
   }
 
   
@@ -72,10 +72,14 @@ class PanelPlayers extends React.Component {
     return (
         <div>
             <GridList padding={10}>
-                <Paper zDepth={2} children={<ListAvailablePlayers players={this.state.availablePlayers} onPlayerClicked={this.handleSelectedPlayer} />} />
+                <Paper zDepth={2} children={
+                    <ListAvailablePlayers players={this.state.availablePlayers} 
+                    onPlayerClicked={this.handleSelectedPlayer}
+                    containerId='containerLeft' />} />
                 <Paper zDepth={2} children={
                   <ListChosenPlayers selectedPlayers={this.state.selectedPlayers} 
-                  onPlayerConfirmed={this.handlePlayerConfirmed} />} 
+                  onPlayerConfirmed={this.handlePlayerConfirmed}
+                  containerId='containerRight' />} 
                 />
             </GridList>
         </div>

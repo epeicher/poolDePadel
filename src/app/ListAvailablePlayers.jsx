@@ -6,7 +6,6 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import Divider from 'material-ui/lib/divider';
 import ActionGrade from 'material-ui/lib/svg-icons/action/grade';
 import Colors from 'material-ui/lib/styles/colors';
-import dragula from 'react-dragula';
 
 class ListAvailablePlayers extends React.Component { 
     
@@ -20,11 +19,6 @@ class ListAvailablePlayers extends React.Component {
              e.currentTarget.id
         );
     }
-
-    componentDidMount() {
-      let container = ReactDOM.findDOMNode(this.refs.container);
-      dragula([container]);
-    }
     
   render() {
 
@@ -35,22 +29,26 @@ class ListAvailablePlayers extends React.Component {
     const styleStandard = {};
 
     const iconSelected = <ActionGrade color={Colors.redA200} />;
-      
+    const iconNotSelected = <ActionGrade style={{display:'none'}} />;
+
     return (
       <div>
-        <List ref='container' subheader="Jugadores disponibles">
+        <List id={this.props.containerId} subheader="Jugadores disponibles">
         {    
           this.props.players.map((player,idx) => {
 
             return (
               <ListItem
                 //style={player.selected ? styleSelected : styleStandard}
+                ref='hola'
                 id={player.name}
                 key={player.name}
                 value={idx}
                 primaryText={player.name}
                 leftAvatar={<Avatar src={player.img} />}
-                rightIcon={player.selected ? iconSelected : ''}
+                {...player.selected ? 
+                    {rightIcon: iconSelected}:
+                     {rightIcon: iconNotSelected}}
                 onTouchTap={this.handleClick}
               />
             );        
