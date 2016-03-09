@@ -49,9 +49,10 @@ class PanelPlayers extends React.Component {
   }
   
   componentDidMount() {
+    this.dragAndDropService.configureContainers(document.getElementById('containerLeft'), document.getElementById('containerRight'));
+    
     this.bindAvailablePlayers();
     this.bindSelectedPlayers();
-    this.dragAndDropService.configureContainers(document.getElementById('containerLeft'), document.getElementById('containerRight'));
   }
 
   

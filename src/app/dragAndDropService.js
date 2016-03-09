@@ -7,15 +7,13 @@ class dragAndDropService {
     }
     
     configureContainers(left, right){
-        dragula([left, right]
-        ,{
-            moves : (el, target, source, sibling) => {
-                if(target.id === "containerLeft") 
-                    return false;
-                return true;
-            }
-        }
-        );
+        let drake = dragula([right], {
+            removeOnSpill: true
+        });
+
+        drake.on("remove", (el,container,source)=> {
+            console.log(el);
+        });
     }
     
 
