@@ -2,7 +2,7 @@ import React from 'react';
 import GridList from 'material-ui/lib/grid-list/grid-list';
 import Paper from 'material-ui/lib/paper';
 import ListAvailablePlayers from './ListAvailablePlayers';
-import ListChosenPlayers from './ListChosenPlayers';
+import ListSelectedPlayers from './ListSelectedPlayers';
 import PlayersRepository from './PlayersRepository';
 import DragAndDropService from './dragAndDropService';
 
@@ -50,7 +50,11 @@ class PanelPlayers extends React.Component {
   
   componentDidMount() {
     this.dragAndDropService.configureContainers(document.getElementById('containerLeft'), document.getElementById('containerRight'));
-    
+    this.dragAndDropService.onRemoveRightItem(el => {
+      let player = el.querySelectorAll('[id]')[0].id; // <- Don't know how to do it better
+      this.playersRepo.updatePlayerRejecting(player);
+    });
+
     this.bindAvailablePlayers();
     this.bindSelectedPlayers();
   }
@@ -78,7 +82,7 @@ class PanelPlayers extends React.Component {
                     onPlayerClicked={this.handleSelectedPlayer}
                     containerId='containerLeft' />} />
                 <Paper zDepth={2} children={
-                  <ListChosenPlayers selectedPlayers={this.state.selectedPlayers} 
+                  <ListSelectedPlayers selectedPlayers={this.state.selectedPlayers} 
                   onPlayerConfirmed={this.handlePlayerConfirmed}
                   containerId='containerRight' />} 
                 />

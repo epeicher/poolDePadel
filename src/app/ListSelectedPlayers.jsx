@@ -9,7 +9,7 @@ import {limeA400} from 'material-ui/lib/styles/colors';
 import Checkbox from 'material-ui/lib/checkbox';
 import Toggle from 'material-ui/lib/toggle'
 
-class ListChosenPlayers extends React.Component { 
+class ListSelectedPlayers extends React.Component { 
     
     constructor(){
         super();
@@ -44,6 +44,7 @@ class ListChosenPlayers extends React.Component {
             return (
               <ListItem
                 //style={player.confirmed ? styleSelected : styleStandard}
+                ref={player.name}
                 key={player.name}
                 id={player.name}
                 primaryText={player.name}
@@ -59,4 +60,4 @@ class ListChosenPlayers extends React.Component {
   }
 }
 
-export default ListChosenPlayers;
+export default ListSelectedPlayers;

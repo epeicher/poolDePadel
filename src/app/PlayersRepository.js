@@ -56,9 +56,28 @@ class PlayersRepository {
       });
 	}
 
+  updatePlayerRejecting(playerName){
+    this.updateAvailableplayerToUnselected(playerName);
+    this.removeFromSelectedPlayers(playerName);
+  }
+
 	abort() {
 		this.firebaseRef.off();
 	}
+
+  updateAvailableplayerToUnselected(playerName) {
+    this.firebaseRef.child('availablePlayers/'+playerName)
+    .update({selected:false});
+  }
+
+  removeFromSelectedPlayers(playerName) {
+    this.firebaseRef.child('matches').orderByKey().limitToLast(1)
+      .once("value", (snapshot) => {
+        snapshot.forEach(d => {
+          d.ref().child('selectedPlayers/'+playerName).remove();
+        });
+      });
+  }
 
 }
 

@@ -7,12 +7,23 @@ class dragAndDropService {
     }
     
     configureContainers(left, right){
-        let drake = dragula([right], {
-            removeOnSpill: true
+        this.drake = dragula([right], {
+            removeOnSpill: false,
+            accepts : (el, target, source, sibling) => {
+                console.log(el);
+                return false
+            }
         });
 
-        drake.on("remove", (el,container,source)=> {
-            console.log(el);
+    }
+
+    onRemoveRightItem(cb){
+        if(!this.drake){ 
+            console.error('container not configured, use configureContainers');
+            return;
+        }
+        this.drake.on("out", (el,container,source)=> {
+            cb(el);
         });
     }
     
