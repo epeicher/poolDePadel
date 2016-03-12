@@ -1,20 +1,20 @@
 {
 	"availablePlayers": {
-		"Brendan Lim": {"name": "Brendan Lim", "img":"http://placecage.com/g/128/128"},
-		"Eric Hoffman": {"name": "Eric Hoffman", "img":"http://fillmurray.com/128/128", "selected":true},
-		"Grace Ng": {"name": "Grace Ng", "img":"http://placecage.com/128/128"},
-		"Kerem Suer": {"name": "Kerem Suer", "img":"http://fillmurray.com/g/128/128"},
-		"Raquel Parrado": {"name": "Raquel Parrado", "img":"http://lorempixel.com/128/128"},
-		"Peter Parrot": {"name": "Peter Parrot", "img":"http://lorempixel.com/128/128","selected":true},
-		"Johny Mnemonic": {"name": "Johny Mnemonic", "img":"http://lorempixel.com/128/128"},
-		"Jack Jitter": {"name": "Jack Jitter", "img":"http://lorempixel.com/128/128"}
+		"Brendan Lim": {"name": "Brendan Lim", "img":"https://placecage.com/g/128/128"},
+		"Eric Hoffman": {"name": "Eric Hoffman", "img":"https://fillmurray.com/128/128", "selected":true},
+		"Grace Ng": {"name": "Grace Ng", "img":"https://placecage.com/128/128"},
+		"Kerem Suer": {"name": "Kerem Suer", "img":"https://fillmurray.com/g/128/128"},
+		"Raquel Parrado": {"name": "Raquel Parrado", "img":"https://unsplash.it/128/128"},
+		"Peter Parrot": {"name": "Peter Parrot", "img":"https://placeimg.com/128/128/any","selected":true},
+		"Johny Mnemonic": {"name": "Johny Mnemonic", "img":"https://unsplash.it/128/128"},
+		"Jack Jitter": {"name": "Jack Jitter", "img":"https://placeimg.com/128/128/any"}
 	},
 	"matches": {
 		"2016-03-10" : {
 			"dateMatch":"2016-03-10T00:00:00.000Z",
 			"selectedPlayers": {
-				"Eric Hoffman": {"name": "Eric Hoffman", "img":"http://fillmurray.com/128/128"},
-				"Peter Parrot": {"name": "Peter Parrot", "img":"http://lorempixel.com/128/128"}
+				"Eric Hoffman": {"name": "Eric Hoffman", "img":"https://fillmurray.com/128/128"},
+				"Peter Parrot": {"name": "Peter Parrot", "img":"https://placecage.com/128/128"}
 			}
 		}
 	}
