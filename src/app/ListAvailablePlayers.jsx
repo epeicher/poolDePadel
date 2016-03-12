@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Avatar from 'material-ui/lib/avatar';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
-import Divider from 'material-ui/lib/divider';
 import ActionGrade from 'material-ui/lib/svg-icons/action/grade';
 import Colors from 'material-ui/lib/styles/colors';
 

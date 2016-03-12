@@ -10,7 +10,6 @@ class dragAndDropService {
         this.drake = dragula([right], {
             removeOnSpill: false,
             accepts : (el, target, source, sibling) => {
-                console.log(el);
                 return false
             }
         });

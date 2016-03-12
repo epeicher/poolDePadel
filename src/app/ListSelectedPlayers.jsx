@@ -1,10 +1,6 @@
 import React from 'react';
-import Avatar from 'material-ui/lib/avatar';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
-import Divider from 'material-ui/lib/divider';
-import CommunicationChatBubble from 'material-ui/lib/svg-icons/communication/chat-bubble';
-import { SelectableContainerEnhance } from 'material-ui/lib/hoc/selectable-enhance';
 import {limeA400} from 'material-ui/lib/styles/colors';
 import Checkbox from 'material-ui/lib/checkbox';
 import Toggle from 'material-ui/lib/toggle'
