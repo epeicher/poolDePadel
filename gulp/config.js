@@ -1,6 +1,8 @@
 var dest = './build',
   src = './src',
-  mui = './node_modules/material-ui/src';
+  mui = './node_modules/material-ui/src',
+  outputFileName = 'app.js',
+  outputMinFile = 'app.min.js';
 
 module.exports = {
   browserSync: {
@@ -25,8 +27,12 @@ module.exports = {
     bundleConfigs: [{
       entries: src + '/app/app.jsx',
       dest: dest,
-      outputName: 'app.js'
+      outputName: outputFileName
     }],
     extensions: ['.jsx'],
+  },
+  minify: {
+    src: dest + '/' + outputFileName,
+    dest: dest
   }
 };
