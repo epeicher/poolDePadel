@@ -6,14 +6,6 @@ import ListSelectedPlayers from './ListSelectedPlayers';
 import PlayersRepository from './PlayersRepository';
 import DragAndDropService from './dragAndDropService';
 
-const style = {
-  height: 100,
-  width: 100,
-  margin: 20,
-  textAlign: 'center',
-  display: 'inline-block',
-};
-
 class PanelPlayers extends React.Component {
     
   constructor() {

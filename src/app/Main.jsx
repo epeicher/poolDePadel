@@ -6,8 +6,8 @@ import React from 'react';
 import {deepOrange500} from 'material-ui/lib/styles/colors';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
-//import { Router, Route, Link, browserHistory } from 'react-router'
 import PanelPlayers from './PanelPlayers'
+import MenuAppBar from './MenuAppBar';
 
 const styles = {
   container: {
@@ -21,10 +21,21 @@ const muiTheme = getMuiTheme({
   },
 });
 
+
 class Main extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+
+    this.initialState={
+      loggedIn : false
+    }
+  }
+
+  updateAuth(loggedIn) {
+    this.setState({
+      loggedIn: true
+    });
   }
 
   render() {
@@ -32,8 +43,8 @@ class Main extends React.Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div style={styles.container}>
-          <h1>Convocatoria</h1>          
-          <PanelPlayers />
+          <MenuAppBar />     
+          {this.props.children}
         </div>
       </MuiThemeProvider>
     );

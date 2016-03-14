@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router'
 import Main from './Main'; // Our custom react component
+import PanelPlayers from './PanelPlayers';
+import Login from './Login';
 
 //Needed for onTouchTap
 //Can go away when react 1.0 release
@@ -23,7 +25,9 @@ injectTapEventPlugin();
 const AppRouter = (props) => {
   return (<Router history={browserHistory}>
     <Route path="/" component={Main}>
-     <IndexRoute component={Main}/>
+      <IndexRoute component={Login}/>
+      <Route path="login" component={Login} />
+      <Route path="convocatoria" component={PanelPlayers} />
     </Route>
   </Router>);
 }
