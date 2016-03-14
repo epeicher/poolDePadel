@@ -13,6 +13,12 @@ const styles = {
   container: {
     textAlign: 'center'
   },
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },  
 };
 
 const muiTheme = getMuiTheme({
@@ -20,7 +26,6 @@ const muiTheme = getMuiTheme({
     accent1Color: deepOrange500,
   },
 });
-
 
 class Main extends React.Component {
 
