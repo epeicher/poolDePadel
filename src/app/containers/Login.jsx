@@ -9,8 +9,7 @@ class Login extends React.Component {
     }
     
     static propTypes = {
-
-      router: React.PropTypes.func.isRequired
+      //router: React.PropTypes.func.isRequired
     }
 
     render() {

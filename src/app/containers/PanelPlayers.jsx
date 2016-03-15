@@ -1,10 +1,10 @@
 import React from 'react';
 import GridList from 'material-ui/lib/grid-list/grid-list';
 import Paper from 'material-ui/lib/paper';
-import ListAvailablePlayers from './ListAvailablePlayers';
-import ListSelectedPlayers from './ListSelectedPlayers';
-import PlayersRepository from './PlayersRepository';
-import DragAndDropService from './dragAndDropService';
+import ListAvailablePlayers from '../components/ListAvailablePlayers';
+import ListSelectedPlayers from '../components/ListSelectedPlayers';
+import PlayersRepository from '../services/PlayersRepository';
+import DragAndDropService from '../services/dragAndDropService';
 
 class PanelPlayers extends React.Component {
     
