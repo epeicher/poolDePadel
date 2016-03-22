@@ -1,11 +1,12 @@
 import React from 'react';
 import {Card, CardText, RaisedButton} from 'material-ui';
-//import Actions from '../actions';
+import login from '../services/login';
 
 class Login extends React.Component {
 
     onClick(){
-      //Actions.login(this.context.router);
+      console.log(this.props);
+      login(this.context.router);
     }
     
     static propTypes = {
