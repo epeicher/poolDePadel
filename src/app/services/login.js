@@ -1,18 +1,16 @@
 import Firebase from 'firebase';
+import { Link } from 'react-router'
 
 const login = (router) => {
-    return (dispatch) => {
-      var firebaseRef = new Firebase('https://pooldepadel.firebaseio.com');
-      firebaseRef.authWithOAuthPopup("google", (error, user)=> {
-        if(error){
-          return;
-        }
 
-        dispatch(user);
-
-        router.transitionTo('/chat');
-      });
+  var firebaseRef = new Firebase('https://mypooldepadel.firebaseio.com');
+  firebaseRef.authWithOAuthPopup("google", (error, user)=> {
+    if(error){
+      return;
     }
-  }
+
+    router.push('/convocatoria');
+  });
+}
 
 export default login;

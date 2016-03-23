@@ -7,6 +7,7 @@ import {deepOrange500} from 'material-ui/lib/styles/colors';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
 import MenuAppBar from '../components/MenuAppBar';
+import {RouteHandler} from 'react-router';
 
 const styles = {
   container: {

@@ -5,12 +5,11 @@ import login from '../services/login';
 class Login extends React.Component {
 
     onClick(){
-      console.log(this.props);
       login(this.context.router);
     }
     
-    static propTypes = {
-      //router: React.PropTypes.func.isRequired
+    static contextTypes = {
+      router: React.PropTypes.object.isRequired
     }
 
     render() {

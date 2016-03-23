@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, Link, IndexLink, browserHistory, RouterContext } from 'react-router'
 import Main from './containers/Main'; 
 import PanelPlayers from './containers/PanelPlayers';
 import Login from './containers/Login';
