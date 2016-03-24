@@ -12,16 +12,6 @@ import Login from './containers/Login';
 //https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-/*
-      <Route path="about" component={About}/>
-      <Route path="users" component={Users}>
-        <Route path="/user/:userId" component={User}/>
-      </Route>
-      <Route path="*" component={NoMatch}/>
-*/
-
-
-
 const AppRouter = (props) => {
   return (<Router history={browserHistory}>
     <Route path="/" component={Main}>
