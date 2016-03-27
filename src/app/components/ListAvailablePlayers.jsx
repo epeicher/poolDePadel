@@ -8,15 +8,18 @@ import Colors from 'material-ui/lib/styles/colors';
 
 class ListAvailablePlayers extends React.Component { 
     
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.store = props.store;
     }
     
     handleClick(e,index) {
-        this.props.onPlayerClicked (
-             e.currentTarget.id
-        );
+        // this.props.onPlayerClicked (
+        //      e.currentTarget.id
+        // );
+        let p = this.props.players.filter(p => p.name === e.currentTarget.id)[0];
+        this.store.dispatch({type:'SELECT_PLAYER', player:p});
     }
     
   render() {

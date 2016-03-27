@@ -3,18 +3,21 @@ import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import {limeA400} from 'material-ui/lib/styles/colors';
 import Checkbox from 'material-ui/lib/checkbox';
-import Toggle from 'material-ui/lib/toggle'
+import Toggle from 'material-ui/lib/toggle';
+import { connect } from 'react-redux'
 
 class ListSelectedPlayers extends React.Component { 
     
-    constructor(){
-        super();
-        this.playerConfirmed = this.playerConfirmed.bind(this);
+    constructor(props){
+        super(props);
+        this.store = props.store;
+        this.selectedPlayers = props.selectedPlayers || [];
     }
     
-    playerConfirmed(e) {
+    playerConfirmed = (e) => {
+        let id = e.target.parentNode.parentNode.id;
          this.props.onPlayerConfirmed (
-              e.target.parentNode.parentNode.id
+            id
          );
     }
     
@@ -36,10 +39,10 @@ class ListSelectedPlayers extends React.Component {
       <div>
         <List id={this.props.containerId} subheader="Jugadores convocados">
         {		
-          this.props.selectedPlayers.map((player) => {
+          this.props.selectedPlayers.map((p) => {
+            let player = p.player;
             return (
               <ListItem
-                //style={player.confirmed ? styleSelected : styleStandard}
                 ref={player.name}
                 key={player.name}
                 id={player.name}
@@ -56,4 +59,19 @@ class ListSelectedPlayers extends React.Component {
   }
 }
 
-export default ListSelectedPlayers;
+const mapStateToProps = (state) => {
+  return {
+    selectedPlayers: state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { }
+}
+
+const SelectedPlayersList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListSelectedPlayers)
+
+export default SelectedPlayersList;

@@ -10,6 +10,7 @@ import {Link} from 'react-router';
 const MenuAppBar = () => (
   <AppBar
     title="Pool de Padel"
+    iconElementLeft={<IconButton />}
     iconElementRight={
       <IconMenu
         iconButtonElement={

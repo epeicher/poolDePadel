@@ -8,8 +8,8 @@ import DragAndDropService from '../services/dragAndDropService';
 
 class PanelPlayers extends React.Component {
     
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.handleSelectedPlayer = this.handleSelectedPlayer.bind(this);
     this.handlePlayerConfirmed = this.handlePlayerConfirmed.bind(this);
@@ -22,6 +22,7 @@ class PanelPlayers extends React.Component {
         selectedPlayers: []
     };
 
+    this.store = props.route.store;
   }
 
   bindAvailablePlayers() {
@@ -71,12 +72,15 @@ class PanelPlayers extends React.Component {
             <GridList padding={10}>
                 <Paper zDepth={2} children={
                     <ListAvailablePlayers players={this.state.availablePlayers} 
-                    onPlayerClicked={this.handleSelectedPlayer}
-                    containerId='containerLeft' />} />
+                      onPlayerClicked={this.handleSelectedPlayer}
+                      containerId='containerLeft' 
+                      store={this.store}
+                    />} />
                 <Paper zDepth={2} children={
                   <ListSelectedPlayers selectedPlayers={this.state.selectedPlayers} 
-                  onPlayerConfirmed={this.handlePlayerConfirmed}
-                  containerId='containerRight' />} 
+                    onPlayerConfirmed={this.handlePlayerConfirmed}
+                    containerId='containerRight' 
+                  />} 
                 />
             </GridList>
         </div>
