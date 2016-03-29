@@ -2,7 +2,7 @@ const selectedPlayer = (state = {}, action) => {
 
 	switch(action.type) {
 		case 'SELECT_PLAYER':
-			return {player: action.player}
+			return {...action.player}
 		default:
 			return state;
 	}

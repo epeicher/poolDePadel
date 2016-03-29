@@ -1,17 +1,14 @@
 import React from 'react';
 import {Card, CardText, RaisedButton} from 'material-ui';
 import login from '../services/login';
+import { browserHistory } from 'react-router'
 
 class Login extends React.Component {
 
     onClick(){
-      login(this.context.router);
+      login(browserHistory);
     }
     
-    static contextTypes = {
-      router: React.PropTypes.object.isRequired
-    }
-
     render() {
 
         return (

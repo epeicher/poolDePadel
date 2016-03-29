@@ -39,8 +39,7 @@ class ListSelectedPlayers extends React.Component {
       <div>
         <List id={this.props.containerId} subheader="Jugadores convocados">
         {		
-          this.props.selectedPlayers.map((p) => {
-            let player = p.player;
+          this.props.selectedPlayers.map(player => {
             return (
               <ListItem
                 ref={player.name}

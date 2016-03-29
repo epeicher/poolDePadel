@@ -5,6 +5,7 @@ import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import ActionGrade from 'material-ui/lib/svg-icons/action/grade';
 import Colors from 'material-ui/lib/styles/colors';
+import { connect } from 'react-redux'
 
 class ListAvailablePlayers extends React.Component { 
     
@@ -15,14 +16,18 @@ class ListAvailablePlayers extends React.Component {
     }
     
     handleClick(e,index) {
-        // this.props.onPlayerClicked (
-        //      e.currentTarget.id
-        // );
         let p = this.props.players.filter(p => p.name === e.currentTarget.id)[0];
         this.store.dispatch({type:'SELECT_PLAYER', player:p});
     }
     
+    updatePlayersSelected(players){
+        console.log(players);
+    }
+    
   render() {
+      
+    // Temporary while connecting properly the store
+    this.updatePlayersSelected(this.props.selectedPlayers);
 
     const styleSelected = {
         backgroundColor:Colors.tealA700
@@ -37,8 +42,7 @@ class ListAvailablePlayers extends React.Component {
       <div>
         <List id={this.props.containerId} subheader="Jugadores disponibles">
         {    
-          this.props.players.map((player,idx) => {
-
+          this.props.players.map((player,idx) => {                            
             return (
               <ListItem
                 //style={player.selected ? styleSelected : styleStandard}
@@ -62,4 +66,19 @@ class ListAvailablePlayers extends React.Component {
   }
 }
 
-export default ListAvailablePlayers;
+const mapStateToProps = (state) => {
+    return {
+        selectedPlayers: state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return { }
+}
+
+const ListAvailablePlayersConnected = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListAvailablePlayers)
+
+export default ListAvailablePlayersConnected;
