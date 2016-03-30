@@ -10,8 +10,6 @@ class ListSelectedPlayers extends React.Component {
     
     constructor(props){
         super(props);
-        this.store = props.store;
-        this.selectedPlayers = props.selectedPlayers || [];
     }
     
     playerConfirmed = (e) => {

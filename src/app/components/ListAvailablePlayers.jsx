@@ -6,28 +6,28 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import ActionGrade from 'material-ui/lib/svg-icons/action/grade';
 import Colors from 'material-ui/lib/styles/colors';
 import { connect } from 'react-redux'
+import array from 'lodash/array'
 
 class ListAvailablePlayers extends React.Component { 
     
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
-        this.store = props.store;
     }
     
     handleClick(e,index) {
+        this.props.onPlayerClicked(p);
         let p = this.props.players.filter(p => p.name === e.currentTarget.id)[0];
-        this.store.dispatch({type:'SELECT_PLAYER', player:p});
+        this.props.onSelectedPlayer({type:'SELECT_PLAYER', player:p});
     }
     
-    updatePlayersSelected(players){
-        console.log(players);
+    updatePlayersSelected(player, players){
+      if(array.findIndex(players, (p) => p.name === player.name) > 0) {
+        player.selected = true;
+      }
     }
     
   render() {
-      
-    // Temporary while connecting properly the store
-    this.updatePlayersSelected(this.props.selectedPlayers);
 
     const styleSelected = {
         backgroundColor:Colors.tealA700
@@ -42,7 +42,8 @@ class ListAvailablePlayers extends React.Component {
       <div>
         <List id={this.props.containerId} subheader="Jugadores disponibles">
         {    
-          this.props.players.map((player,idx) => {                            
+          this.props.players.map((player,idx) => {   
+            this.updatePlayersSelected(player, this.props.selectedPlayers);
             return (
               <ListItem
                 //style={player.selected ? styleSelected : styleStandard}
@@ -67,13 +68,17 @@ class ListAvailablePlayers extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        selectedPlayers: state
-    }
+  return {
+      selectedPlayers: state
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return { }
+  return { 
+    onSelectedPlayer: (playerAction) => {
+      dispatch(playerAction)
+    }
+  }
 }
 
 const ListAvailablePlayersConnected = connect(

@@ -1,5 +1,4 @@
 const selectedPlayer = (state = {}, action) => {
-
 	switch(action.type) {
 		case 'SELECT_PLAYER':
 			return {...action.player}
@@ -9,11 +8,13 @@ const selectedPlayer = (state = {}, action) => {
 }
 
 const selectedPlayers = (state = [], action) => {
+	console.log(action);
 	switch(action.type) {
 		case 'SELECT_PLAYER':
+			let players = action.player.map((p) => selectedPlayer(undefined, p));
 			return [
 				...state,
-				selectedPlayer(undefined, action)
+				...players
 			]
 		default:
 			return state;

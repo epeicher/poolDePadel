@@ -6,6 +6,7 @@ import ListSelectedPlayers from '../components/ListSelectedPlayers';
 import PlayersRepository from '../services/PlayersRepository';
 import DragAndDropService from '../services/dragAndDropService';
 
+
 class PanelPlayers extends React.Component {
     
   constructor(props) {
@@ -21,8 +22,6 @@ class PanelPlayers extends React.Component {
         availablePlayers: [],
         selectedPlayers: []
     };
-
-    this.store = props.route.store;
   }
 
   bindAvailablePlayers() {
@@ -35,6 +34,7 @@ class PanelPlayers extends React.Component {
 
   bindSelectedPlayers() {
     this.playersRepo.getSelectedPlayers((data => {
+      this.props.route.store.dispatch({type:'SELECT_PLAYER', player:[...data]});
       this.setState({
         selectedPlayers: data
       });      
@@ -74,10 +74,9 @@ class PanelPlayers extends React.Component {
                     <ListAvailablePlayers players={this.state.availablePlayers} 
                       onPlayerClicked={this.handleSelectedPlayer}
                       containerId='containerLeft' 
-                      store={this.store}
                     />} />
                 <Paper zDepth={2} children={
-                  <ListSelectedPlayers selectedPlayers={this.state.selectedPlayers} 
+                  <ListSelectedPlayers
                     onPlayerConfirmed={this.handlePlayerConfirmed}
                     containerId='containerRight' 
                   />} 
