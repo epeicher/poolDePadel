@@ -1,21 +1,23 @@
-const selectedPlayer = (state = {}, action) => {
-	switch(action.type) {
-		case 'SELECT_PLAYER':
-			return {...action.player}
-		default:
-			return state;
-	}
-}
 
-const selectedPlayers = (state = [], action) => {
-	console.log(action);
+const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[]}, action) => {
+
 	switch(action.type) {
-		case 'SELECT_PLAYER':
-			let players = action.player.map((p) => selectedPlayer(undefined, p));
-			return [
-				...state,
-				...players
-			]
+		case 'SELECTED_PLAYERS':
+			return {
+				selectedPlayers: [
+					//...state.selectedPlayers,
+					...action.selectedPlayers
+				],
+				availablePlayers: [...state.availablePlayers]
+			}
+		case 'AVAILABLE_PLAYERS':
+			return {
+				selectedPlayers: [...state.selectedPlayers],
+				availablePlayers: [
+					...state.availablePlayers,
+					...action.availablePlayers
+				]
+			}
 		default:
 			return state;
 	}

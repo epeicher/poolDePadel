@@ -7,18 +7,19 @@ import ActionGrade from 'material-ui/lib/svg-icons/action/grade';
 import Colors from 'material-ui/lib/styles/colors';
 import { connect } from 'react-redux'
 import array from 'lodash/array'
+import PlayersRepository from '../services/PlayersRepository';
 
 class ListAvailablePlayers extends React.Component { 
     
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.repo = new PlayersRepository();
     }
     
     handleClick(e,index) {
-        this.props.onPlayerClicked(p);
         let p = this.props.players.filter(p => p.name === e.currentTarget.id)[0];
-        this.props.onSelectedPlayer({type:'SELECT_PLAYER', player:p});
+        this.repo.updateSelectedPlayer(p.name)
     }
     
     updatePlayersSelected(player, players){
@@ -74,11 +75,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { 
-    onSelectedPlayer: (playerAction) => {
-      dispatch(playerAction)
-    }
-  }
+  return { }
 }
 
 const ListAvailablePlayersConnected = connect(

@@ -31,15 +31,6 @@ class PanelPlayers extends React.Component {
       });
     }).bind(this));
   }
-
-  bindSelectedPlayers() {
-    this.playersRepo.getSelectedPlayers((data => {
-      this.props.route.store.dispatch({type:'SELECT_PLAYER', player:[...data]});
-      this.setState({
-        selectedPlayers: data
-      });      
-    }).bind(this));
-  }
   
   componentDidMount() {
     this.dragAndDropService.configureContainers(document.getElementById('containerLeft'), document.getElementById('containerRight'));
@@ -49,7 +40,6 @@ class PanelPlayers extends React.Component {
     });
 
     this.bindAvailablePlayers();
-    this.bindSelectedPlayers();
   }
 
   

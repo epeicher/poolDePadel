@@ -6,26 +6,25 @@ import PlayersRepository from '../services/PlayersRepository'
 
 const repo = new PlayersRepository();
 
-export default function configureStore(initialState) {
+export default function configureStore() {
 
   let store = createStore(
     rootReducer,
-    initialState,
     applyMiddleware(thunk)
   )
 
   function asyncAction() {
     return (dispatch) => {
       repo.getSelectedPlayers((p) => {
-        dispatch({type:'SELECT_PLAYER', selectedPlayers:p});
+        dispatch({type:'SELECTED_PLAYERS', selectedPlayers:p});
       });
       repo.getPlayers((p) => {
-        dispatch({type:'ADD_PLAYER', availablePlayers:p});
+        dispatch({type:'AVAILABLE_PLAYERS', availablePlayers:p});
       });
     }
   }
 
-  store.dispatch(asyncAction);
+  store.dispatch(asyncAction());
 
   return store;
 
