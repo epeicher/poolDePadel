@@ -13,19 +13,12 @@ class ListAvailablePlayers extends React.Component {
     
     constructor(props){
         super(props);
-        this.handleClick = this.handleClick.bind(this);
         this.repo = new PlayersRepository();
     }
     
-    handleClick(e,index) {
+    handleClick = (e,index) => {
         let p = this.props.availablePlayers.filter(p => p.name === e.currentTarget.id)[0];
         this.repo.updateSelectedPlayer(p.name)
-    }
-    
-    updatePlayersSelected(player, players){
-      if(array.findIndex(players, (p) => p.name === player.name) > 0) {
-        player.selected = true;
-      }
     }
     
   render() {
@@ -44,7 +37,6 @@ class ListAvailablePlayers extends React.Component {
         <List id={this.props.containerId} subheader="Jugadores disponibles">
         {    
           this.props.availablePlayers.map((player,idx) => {   
-            this.updatePlayersSelected(player, this.props.selectedPlayers);
             return (
               <ListItem
                 //style={player.selected ? styleSelected : styleStandard}
@@ -79,8 +71,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const ListAvailablePlayersConnected = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(ListAvailablePlayers)
 
 export default ListAvailablePlayersConnected;

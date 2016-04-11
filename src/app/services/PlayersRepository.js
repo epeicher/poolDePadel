@@ -2,20 +2,19 @@ import Firebase from 'firebase';
 
 class PlayersRepository {
     
-    constructor() {
-    	let that = this;
-        this.firebaseRef = new Firebase('https://mypooldepadel.firebaseio.com/');
-    }    
+  constructor() {
+    this.firebaseRef = new Firebase('https://mypooldepadel.firebaseio.com/');
+  }    
 
-    getPlayers(cb) {
+  getPlayers(cb) {
 		this.firebaseRef.child('availablePlayers').on("value", (snapshot) => {
 			let availablePlayers = [];
 			snapshot.forEach(data => {availablePlayers.push(data.val())});
 			cb(availablePlayers);
 		});
-    }
+  }
 
-    getSelectedPlayers(cb) {
+  getSelectedPlayers(cb) {
 		this.firebaseRef.child('matches').orderByKey().limitToLast(1)
 		.on("value", (snapshot) => {
 			let selectedPlayers = [];
@@ -28,7 +27,7 @@ class PlayersRepository {
 			});
 			cb(selectedPlayers);
 		});
-    }
+  }
 	
 	updateSelectedPlayer(playerName) {
       let selectedPlayer;

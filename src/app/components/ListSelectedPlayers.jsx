@@ -5,18 +5,19 @@ import {limeA400} from 'material-ui/lib/styles/colors';
 import Checkbox from 'material-ui/lib/checkbox';
 import Toggle from 'material-ui/lib/toggle';
 import { connect } from 'react-redux'
+import PlayersRepository from '../services/PlayersRepository';
+
 
 class ListSelectedPlayers extends React.Component { 
     
     constructor(props){
         super(props);
+        this.repo = new PlayersRepository();
     }
     
     playerConfirmed = (e) => {
         let id = e.target.parentNode.parentNode.id;
-         this.props.onPlayerConfirmed (
-            id
-         );
+        this.repo.updateConfirmedPlayer(id);
     }
     
   render() {
@@ -51,12 +52,12 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { }
+  return { 
+  }
 }
 
 const SelectedPlayersList = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(ListSelectedPlayers)
 
 export default SelectedPlayersList;

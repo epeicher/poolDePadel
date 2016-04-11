@@ -2,6 +2,7 @@
 const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[]}, action) => {
 
 	switch(action.type) {
+
 		case 'SELECTED_PLAYERS':
 			return {
 				selectedPlayers: [

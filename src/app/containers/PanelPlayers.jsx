@@ -11,25 +11,9 @@ class PanelPlayers extends React.Component {
     
   constructor(props) {
     super(props);
-
-    this.handleSelectedPlayer = this.handleSelectedPlayer.bind(this);
-    this.handlePlayerConfirmed = this.handlePlayerConfirmed.bind(this);
     
     this.playersRepo = new PlayersRepository();
     this.dragAndDropService = new DragAndDropService();
-
-    this.state = {
-        availablePlayers: [],
-        selectedPlayers: []
-    };
-  }
-
-  bindAvailablePlayers() {
-    this.playersRepo.getPlayers((data => {
-      this.setState({
-        availablePlayers: data
-      });
-    }).bind(this));
   }
   
   componentDidMount() {
@@ -38,21 +22,6 @@ class PanelPlayers extends React.Component {
       let player = el.querySelectorAll('[id]')[0].id; // <- Don't know how to do it better
       this.playersRepo.updatePlayerRejecting(player);
     });
-
-    this.bindAvailablePlayers();
-  }
-
-  
-  componentWillUnmount() {
-    this.playersRepo.abort();
-  }
-
-  handleSelectedPlayer(playerName) {
-    this.playersRepo.updateSelectedPlayer(playerName);
-  }
-  
-  handlePlayerConfirmed(playerName) {
-    this.playersRepo.updateConfirmedPlayer(playerName);
   }
 
   render() {
@@ -62,12 +31,10 @@ class PanelPlayers extends React.Component {
             <GridList padding={10}>
                 <Paper zDepth={2} children={
                     <ListAvailablePlayers 
-                      onPlayerClicked={this.handleSelectedPlayer}
                       containerId='containerLeft' 
                     />} />
                 <Paper zDepth={2} children={
                   <ListSelectedPlayers
-                    onPlayerConfirmed={this.handlePlayerConfirmed}
                     containerId='containerRight' 
                   />} 
                 />
