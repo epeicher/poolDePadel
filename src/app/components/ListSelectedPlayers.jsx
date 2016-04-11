@@ -19,19 +19,7 @@ class ListSelectedPlayers extends React.Component {
          );
     }
     
-    onUnselected(e) {
-      this.props.onPlayerRejecting (
-        e.target.parentNode.parentNode.id,
-        e.target.checked)
-    }
-
   render() {
-
-    const styleSelected = {
-        backgroundColor:limeA400
-    };
-    
-    const styleStandard = {};
 
     return (
       <div>

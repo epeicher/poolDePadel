@@ -18,7 +18,7 @@ class ListAvailablePlayers extends React.Component {
     }
     
     handleClick(e,index) {
-        let p = this.props.players.filter(p => p.name === e.currentTarget.id)[0];
+        let p = this.props.availablePlayers.filter(p => p.name === e.currentTarget.id)[0];
         this.repo.updateSelectedPlayer(p.name)
     }
     
@@ -43,7 +43,7 @@ class ListAvailablePlayers extends React.Component {
       <div>
         <List id={this.props.containerId} subheader="Jugadores disponibles">
         {    
-          this.props.players.map((player,idx) => {   
+          this.props.availablePlayers.map((player,idx) => {   
             this.updatePlayersSelected(player, this.props.selectedPlayers);
             return (
               <ListItem
@@ -68,9 +68,9 @@ class ListAvailablePlayers extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {    
   return {
-      selectedPlayers: state
+      availablePlayers: state.availablePlayers
   }
 }
 

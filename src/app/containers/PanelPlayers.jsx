@@ -61,7 +61,7 @@ class PanelPlayers extends React.Component {
         <div>
             <GridList padding={10}>
                 <Paper zDepth={2} children={
-                    <ListAvailablePlayers players={this.state.availablePlayers} 
+                    <ListAvailablePlayers 
                       onPlayerClicked={this.handleSelectedPlayer}
                       containerId='containerLeft' 
                     />} />

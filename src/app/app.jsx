@@ -23,7 +23,7 @@ const AppRouter = (props) => {
 			<Route path="/" component={Main}>
 			  <IndexRoute component={Login}/>
 			  <Route path="login" component={Login} />
-			  <Route path="convocatoria" component={PanelPlayers} store={store} />
+			  <Route path="convocatoria" component={PanelPlayers} />
 			</Route>
 		</Router>
 	</Provider>);

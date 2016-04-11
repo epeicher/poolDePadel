@@ -14,7 +14,7 @@ const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[]}, acti
 			return {
 				selectedPlayers: [...state.selectedPlayers],
 				availablePlayers: [
-					...state.availablePlayers,
+					//...state.availablePlayers,
 					...action.availablePlayers
 				]
 			}
