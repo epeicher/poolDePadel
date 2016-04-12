@@ -6,58 +6,65 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import ActionGrade from 'material-ui/lib/svg-icons/action/grade';
 import Colors from 'material-ui/lib/styles/colors';
 import { connect } from 'react-redux'
-import array from 'lodash/array'
-import PlayersRepository from '../services/PlayersRepository';
+import { getAvailablePlayers, updateSelectedPlayer } from '../actions'
 
 class ListAvailablePlayers extends React.Component { 
-    
+/*
+	static propTypes = {
+		dispatch: React.PropTypes.func.isRequired
+	}
+*/  
     constructor(props){
         super(props);
-        this.repo = new PlayersRepository();
     }
     
-    handleClick = (e,index) => {
-        let p = this.props.availablePlayers.filter(p => p.name === e.currentTarget.id)[0];
-        this.repo.updateSelectedPlayer(p.name)
+    handleClick(e,index) {
+        updateSelectedPlayer(e.currentTarget.id)
+    }
+
+    componentWillMount() {
+	    this.props.dispatch(getAvailablePlayers());
     }
     
-  render() {
+    render() {
 
-    const styleSelected = {
-        backgroundColor:Colors.tealA700
-    };
+        const styleSelected = {
+            backgroundColor:Colors.tealA700
+        };
+        
+        const styleStandard = {};
+
+        const iconSelected = <ActionGrade color={Colors.redA200} />;
+        const iconNotSelected = <ActionGrade style={{display:'none'}} />;
+
+        return (
+        <div>
+            <List id={this.props.containerId} subheader="Jugadores disponibles">
+            {    
+            this.props.availablePlayers.map((player,idx) => {   
+                return (
+                <ListItem
+                    //style={player.selected ? styleSelected : styleStandard}
+                    ref='hola'
+                    id={player.name}
+                    key={player.name}
+                    value={idx}
+                    primaryText={player.name}
+                    leftAvatar={<Avatar src={player.img} />}
+                    {...player.selected ? 
+                        {rightIcon: iconSelected}:
+                        {rightIcon: iconNotSelected}}
+                    onTouchTap={this.handleClick}
+                />
+                );        
+            })
+            }
+            </List>
+        </div>
+        );
+    }
     
-    const styleStandard = {};
-
-    const iconSelected = <ActionGrade color={Colors.redA200} />;
-    const iconNotSelected = <ActionGrade style={{display:'none'}} />;
-
-    return (
-      <div>
-        <List id={this.props.containerId} subheader="Jugadores disponibles">
-        {    
-          this.props.availablePlayers.map((player,idx) => {   
-            return (
-              <ListItem
-                //style={player.selected ? styleSelected : styleStandard}
-                ref='hola'
-                id={player.name}
-                key={player.name}
-                value={idx}
-                primaryText={player.name}
-                leftAvatar={<Avatar src={player.img} />}
-                {...player.selected ? 
-                    {rightIcon: iconSelected}:
-                     {rightIcon: iconNotSelected}}
-                onTouchTap={this.handleClick}
-              />
-            );        
-          })
-        }
-        </List>
-      </div>
-      );
-  }
+    
 }
 
 const mapStateToProps = (state) => {    

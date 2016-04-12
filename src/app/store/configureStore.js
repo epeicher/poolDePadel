@@ -13,19 +13,6 @@ export default function configureStore() {
     applyMiddleware(thunk)
   )
 
-  function asyncAction() {
-    return (dispatch) => {
-      repo.getSelectedPlayers((p) => {
-        dispatch({type:'SELECTED_PLAYERS', selectedPlayers:p});
-      });
-      repo.getPlayers((p) => {
-        dispatch({type:'AVAILABLE_PLAYERS', availablePlayers:p});
-      });
-    }
-  }
-
-  store.dispatch(asyncAction());
-
   return store;
 
 }

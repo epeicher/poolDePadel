@@ -1,24 +1,26 @@
 import React from 'react';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
-import {limeA400} from 'material-ui/lib/styles/colors';
 import Checkbox from 'material-ui/lib/checkbox';
 import Toggle from 'material-ui/lib/toggle';
 import { connect } from 'react-redux'
-import PlayersRepository from '../services/PlayersRepository';
-
+import { getSelectedPlayers, updateConfirmedPlayer } from '../actions'
 
 class ListSelectedPlayers extends React.Component { 
     
     constructor(props){
         super(props);
-        this.repo = new PlayersRepository();
     }
     
-    playerConfirmed = (e) => {
+    playerConfirmed(e) {
         let id = e.target.parentNode.parentNode.id;
-        this.repo.updateConfirmedPlayer(id);
+        updateConfirmedPlayer(id);
     }
+
+    componentWillMount() {
+	    this.props.dispatch(getSelectedPlayers());
+    }
+
     
   render() {
 
