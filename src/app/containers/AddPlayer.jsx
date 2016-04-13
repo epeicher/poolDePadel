@@ -1,29 +1,37 @@
 import React from 'react';
 import TextField from 'material-ui/lib/text-field';
+import RaisedButton from 'material-ui/lib/raised-button';
+import {connect} from 'react-redux';
 
-const TextFieldExampleError = () => (
-  <div>
-    <TextField
-      hintText="Hint Text"
-      errorText=""
-    /><br/>
-    <TextField
-      hintText="Hint Text"
-      errorText="The error text can be as long as you want, it will wrap."
-    /><br/>
-    <TextField
-      hintText="Hint Text"
-      errorText="This field is required"
-      floatingLabelText="Floating Label Text"
-    /><br/>
-    <TextField
-      hintText="Message Field"
-      errorText="This field is required."
-      floatingLabelText="MultiLine and FloatingLabel"
-      multiLine={true}
-      rows={2}
-    /><br/>
-  </div>
-);
+const TextFieldExampleError = (props) => {
+    var p = props.addPlayer;
+    return (
+        <div>
+            <form>
+                <TextField
+                hintText="Nombre"
+                errorText={p.errorName}
+                floatingLabelText="Nombre del jugador"
+                /><br/>
+                <RaisedButton type="button">Guardar</RaisedButton>
+            </form>
+        </div>
+        );
+}
 
-export default TextFieldExampleError;
+const mapStateToProps = (state) => {    
+  return {
+      addPlayer: state.addPlayer || {errorName:"This is an error"}
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { }
+}
+
+const TextFieldExampleErrorConnected = connect(
+  mapStateToProps
+)(TextFieldExampleError)
+
+
+export default TextFieldExampleErrorConnected;

@@ -1,7 +1,6 @@
 import PlayersRepository from '../services/PlayersRepository'
 
 const repo = new PlayersRepository();
-console.log("hola");
 
 export function getSelectedPlayers() {
 	return (dispatch) => {

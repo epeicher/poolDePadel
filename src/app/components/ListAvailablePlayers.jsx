@@ -45,7 +45,6 @@ class ListAvailablePlayers extends React.Component {
                 return (
                 <ListItem
                     //style={player.selected ? styleSelected : styleStandard}
-                    ref='hola'
                     id={player.name}
                     key={player.name}
                     value={idx}
