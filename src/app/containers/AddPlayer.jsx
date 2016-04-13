@@ -2,21 +2,26 @@ import React from 'react';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 import {connect} from 'react-redux';
+import {addPlayer} from '../actions'
 
 const TextFieldExampleError = (props) => {
     var p = props.addPlayer;
     return (
         <div>
-            <form>
-                <TextField
+            <TextField
+                id="player"
                 hintText="Nombre"
                 errorText={p.errorName}
                 floatingLabelText="Nombre del jugador"
                 /><br/>
-                <RaisedButton type="button">Guardar</RaisedButton>
-            </form>
+            <RaisedButton type="button" onClick={handleAddPlayer}>Guardar</RaisedButton>
         </div>
         );
+}
+
+const handleAddPlayer = (a,b) => {
+    let playerName = document.getElementById("player").value;
+    addPlayer(playerName);
 }
 
 const mapStateToProps = (state) => {    
@@ -26,7 +31,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { }
+  return { 
+  }
 }
 
 const TextFieldExampleErrorConnected = connect(

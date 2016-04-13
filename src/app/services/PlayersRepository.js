@@ -77,6 +77,12 @@ class PlayersRepository {
         });
       });
   }
+  
+  addPlayer(playerName){
+      let newPlayer = {};
+      newPlayer[playerName] = {"name": playerName};
+      this.firebaseRef.child('availablePlayers').update(newPlayer);
+  }
 
 }
 

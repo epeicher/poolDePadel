@@ -26,3 +26,7 @@ export function updateConfirmedPlayer(playerName) {
     repo.updateConfirmedPlayer(playerName);
 }
     
+export function addPlayer(playerName) {
+    repo.addPlayer(playerName);
+}
+    
