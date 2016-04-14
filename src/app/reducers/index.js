@@ -19,9 +19,25 @@ const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[]}, acti
 					...action.availablePlayers
 				]
 			}
+		case 'ADDED_PLAYER':
+		case 'ADDING_PLAYER':
+			return {
+				addedPlayer: action.playerName
+			}			
 		default:
 			return state;
 	}
 }
 
 export default selectedPlayers;
+
+export function validateAddPlayer(state) {
+	if(!!!state.addedPlayer) {
+		return "Este campo es obligatorio";
+	}
+	return "";
+}
+
+export function getAddedPlayer(state) {
+	return state.addedPlayer;
+}
