@@ -29,4 +29,9 @@ export function updateConfirmedPlayer(playerName) {
 export function addPlayer(playerName) {
 	return (dispatch) => repo.addPlayer(playerName).then(() => dispatch({type:'ADDED_PLAYER', playerName: playerName}));
 }
+
+export function addPlayerPromise(playerName) {
+	console.log(playerName)
+	return repo.addPlayer(playerName);
+}
     

@@ -2,60 +2,57 @@ import React from 'react';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 import {connect} from 'react-redux';
-import {addPlayer} from '../actions'
+import {addPlayer, addPlayerPromise} from '../actions'
 import {validateAddPlayer, getAddedPlayer} from '../reducers'
+import { reduxForm } from 'redux-form'
+export const fields = [ 'playerName' ]
 
-class TextFieldExampleError extends React.Component {
+class AddPlayerForm extends React.Component {
     
     constructor(props){
         super(props);
     }
-
-    handleAddPlayer = () => {
-        if(!!!this.props.errorMsg) {
-            let playerElem = document.getElementById("player");
-            let playerName = playerElem && playerElem.value;
-            this.props.dispatch(addPlayer(playerName));
-        }    
-    }        
-    
-    addingPlayer = (e) => {        
-        this.props.dispatch({type: 'ADDING_PLAYER', playerName: e.target.value});
-    }
     
     render() {
+        const {fields: {playerName}, handleSubmit} = this.props;
+
         return (
-            <div>
+            <form>
                 <TextField
                     id="player"
                     hintText="Nombre"
-                    errorText={this.props.errorMsg}
+                    errorText={(playerName.touched && playerName.error) ? playerName.error : ''}
                     floatingLabelText="Nombre del jugador"
-                    onChange={this.addingPlayer}
+                    {...playerName}
                     /><br/>
-                <RaisedButton type="button" onClick={this.handleAddPlayer}>Guardar</RaisedButton>
-            </div>
+                <RaisedButton type="button" onClick={handleSubmit}>Guardar</RaisedButton>
+            </form>
         );
     }
 }
 
-
-
-const mapStateToProps = (state) => { 
-  return {
-      errorMsg: validateAddPlayer(state),
-      playerName: getAddedPlayer(state)
-  }
+const validate = values => {
+    const errors = {}
+    if(!values.playerName) {
+        errors.playerName = 'Rellena el Nombre'
+    }
+    return errors
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { 
-  }
+    return {
+        onSubmit: addPlayerAction
+    }
 }
 
-const TextFieldExampleErrorConnected = connect(
-  mapStateToProps
-)(TextFieldExampleError)
+const addPlayerAction = (data) => {
+    return addPlayerPromise(data.playerName);
+}
 
-
-export default TextFieldExampleErrorConnected;
+export default reduxForm({
+  form: 'addPlayer',
+  fields,
+  validate
+},undefined,
+mapDispatchToProps
+)(AddPlayerForm)

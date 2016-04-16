@@ -1,6 +1,6 @@
 
 const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[]}, action) => {
-
+console.log(action);
 	switch(action.type) {
 
 		case 'SELECTED_PLAYERS':
@@ -21,6 +21,7 @@ const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[]}, acti
 			}
 		case 'ADDED_PLAYER':
 		case 'ADDING_PLAYER':
+			
 			return {
 				addedPlayer: action.playerName
 			}			

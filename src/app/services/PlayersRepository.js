@@ -13,6 +13,17 @@ class PlayersRepository {
 			cb(availablePlayers);
 		});
   }
+  
+  playerExists(playerName){
+    return new Promise((resolve, reject) => {
+      this.firebaseRef.child('availablePlayers/' + playerName).once('value', (sp) => {
+        if(sp.val()) {
+          resolve(true)
+        } else {
+          resolve(false);
+        }
+      })});
+  }
 
   getSelectedPlayers(cb) {
 		this.firebaseRef.child('matches').orderByKey().limitToLast(1)
