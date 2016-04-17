@@ -14,17 +14,6 @@ class PlayersRepository {
 		});
   }
   
-  playerExists(playerName){
-    return new Promise((resolve, reject) => {
-      this.firebaseRef.child('availablePlayers/' + playerName).once('value', (sp) => {
-        if(sp.val()) {
-          resolve(true)
-        } else {
-          resolve(false);
-        }
-      })});
-  }
-
   getSelectedPlayers(cb) {
 		this.firebaseRef.child('matches').orderByKey().limitToLast(1)
 		.on("value", (snapshot) => {
@@ -90,9 +79,18 @@ class PlayersRepository {
   }
   
   addPlayer(playerName){
-      let newPlayer = {};
-      newPlayer[playerName] = {"name": playerName};
-      return this.firebaseRef.child('availablePlayers').update(newPlayer);
+    return new Promise((resolve, reject) => {
+      this.firebaseRef.child('availablePlayers').child(playerName)
+        .once('value', (sp) => {
+          if(sp.exists()) {
+            reject('El jugador ya existe')
+          } else {
+            let newPlayer = {};
+            newPlayer[playerName] = {"name": playerName};
+            resolve(this.firebaseRef.child('availablePlayers').update(newPlayer))
+          }          
+        })
+    });
   }
 
 }

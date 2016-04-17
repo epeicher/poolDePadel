@@ -1,6 +1,6 @@
 
 const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[]}, action) => {
-console.log(action);
+	
 	switch(action.type) {
 
 		case 'SELECTED_PLAYERS':

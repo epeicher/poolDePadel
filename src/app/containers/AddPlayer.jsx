@@ -14,14 +14,14 @@ class AddPlayerForm extends React.Component {
     }
     
     render() {
-        const {fields: {playerName}, handleSubmit} = this.props;
+        const {fields: {playerName}, error, handleSubmit} = this.props;
 
         return (
             <form>
                 <TextField
                     id="player"
                     hintText="Nombre"
-                    errorText={(playerName.touched && playerName.error) ? playerName.error : ''}
+                    errorText={(playerName.touched && playerName.error) || error ? playerName.error || error : ''}
                     floatingLabelText="Nombre del jugador"
                     {...playerName}
                     /><br/>
