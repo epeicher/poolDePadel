@@ -23,6 +23,9 @@ const MenuAppBar = () => (
           <Link to="/convocatoria" style={{textDecoration:'none'}}>Convocatoria</Link>
         </MenuItem>
         <MenuItem>
+            <Link to="/addmatch" style={{textDecoration:'none'}}>Agrega Partido</Link>
+        </MenuItem>
+        <MenuItem>
             <Link to="/addplayer" style={{textDecoration:'none'}}>Agrega Jugador</Link>
         </MenuItem>
         <MenuItem primaryText="Partidos" />

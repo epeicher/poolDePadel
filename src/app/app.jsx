@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute, Link, IndexLink, browserHistory, IndexRedire
 import Main from './containers/Main'; 
 import PanelPlayers from './containers/PanelPlayers';
 import AddPlayer from './containers/AddPlayer';
+import AddMatch from './containers/AddMatch';
 import Login from './containers/Login';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux'
@@ -26,6 +27,7 @@ const AppRouter = (props) => {
 			  <Route path="login" component={Login} />
 			  <Route path="convocatoria" component={PanelPlayers} />
 			  <Route path="addplayer" component={AddPlayer} />
+              <Route path="addmatch" component={AddMatch} />
 			</Route>
 		</Router>
 	</Provider>);

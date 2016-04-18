@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 import {connect} from 'react-redux';
-import {addPlayer, addPlayerPromise} from '../actions'
+import {addPlayerPromise} from '../actions'
 import {validateAddPlayer, getAddedPlayer} from '../reducers'
 import { reduxForm } from 'redux-form'
 export const fields = [ 'playerName' ]
@@ -41,12 +41,8 @@ const validate = values => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmit: addPlayerAction
+        onSubmit: (data) => addPlayerPromise(data.playerName)
     }
-}
-
-const addPlayerAction = (data) => {
-    return addPlayerPromise(data.playerName);
 }
 
 export default reduxForm({
