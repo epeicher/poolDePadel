@@ -32,7 +32,6 @@ export function addPlayerPromise(playerName) {
 }
 
 export function addMatchPromise(date) {
-	console.log(date);
 	return repo.addMatch(date)
 		.catch(error => Promise.reject({_error: error}));
 }

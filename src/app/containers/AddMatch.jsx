@@ -18,7 +18,7 @@ class AddMatch extends React.Component {
                         style={styleInput}
                         {...matchDate}
                     />
-                    <div style={styleErrorLabel}>{matchDate.error}</div>
+                    <div style={styleErrorLabel}>{matchDate.error || error}</div>
                 </div>
                 <br/>
                 <RaisedButton type="button" onClick={handleSubmit}>Guardar</RaisedButton>
@@ -41,7 +41,7 @@ const validate = values => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmit: date => addMatchPromise(date)
+        onSubmit: data => addMatchPromise(data.matchDate)
     }
 }
 

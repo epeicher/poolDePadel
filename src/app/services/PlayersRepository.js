@@ -95,9 +95,16 @@ class PlayersRepository {
   
   addMatch(date) {
     return new Promise((resolve,reject) => {
-      let newMatch = {}
-      newMatch[date] = {"dateMatch": date}
-      resolve(this.firebaseRef.child('matches').update(newMatch))
+      this.firebaseRef.child('matches').child(date)
+        .once('value', (sp) => {
+          if(sp.exists()) {
+            reject('El partido ya existe')
+          } else {
+            let newMatch = {}
+            newMatch[date] = {"dateMatch": date}
+            resolve(this.firebaseRef.child('matches').update(newMatch))
+          }
+      })
     })
   }
 
