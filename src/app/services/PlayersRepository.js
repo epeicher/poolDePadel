@@ -92,6 +92,14 @@ class PlayersRepository {
         })
     });
   }
+  
+  addMatch(date) {
+    return new Promise((resolve,reject) => {
+      let newMatch = {}
+      newMatch[date] = {"dateMatch": date}
+      resolve(this.firebaseRef.child('matches').update(newMatch))
+    })
+  }
 
 }
 

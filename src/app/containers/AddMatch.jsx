@@ -7,36 +7,86 @@ import {addMatchPromise} from '../actions'
 export const fields = [ 'matchDate' ]
 
 class AddMatch extends React.Component {
-    
-
-
+   
     render () {
         const {fields: {matchDate}, error, handleSubmit} = this.props;
         return (
             <form>
-                <DatePicker
-                    id="match"
-                    hintText="Fecha del pr&oacute;ximo partido"
-                    errorText={(matchDate.touched && matchDate.error) || error ? matchDate.error || error : ''}
-                    mode="landscape" 
-                    onChange={handleSubmit}
-                    //{...matchDate}
-                /><br/>
+                <div style={styleDiv}>
+                    <input
+                        type="date"
+                        style={styleInput}
+                        {...matchDate}
+                    />
+                    <div style={styleErrorLabel}>{matchDate.error}</div>
+                </div>
+                <br/>
                 <RaisedButton type="button" onClick={handleSubmit}>Guardar</RaisedButton>
             </form>
         )
     }
 }
 
+const validate = values => {
+    const errors = {}
+    const date = new Date(values.matchDate)
+
+    if(!date || isNaN(date.getTime())) {
+        errors.matchDate = 'Fecha incorrecta'
+    } else if(date < new Date()) {
+        errors.matchDate = 'Esa fecha ya ha pasado'
+    }
+    return errors
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmit: (event, date) => {console.log(event);console.log(date)}
+        onSubmit: date => addMatchPromise(date)
     }
 }
 
 export default reduxForm({
     form: 'addMatch',
-    fields
+    fields,
+    validate
 },undefined,
 mapDispatchToProps
 )(AddMatch)
+
+
+const styleDiv = {
+        "fontSize":"16px",
+        "lineHeight":"24px",
+        "width":"256px",
+        "height":"72px",
+        "display":"inline-block",
+        "position":"relative",
+        "backgroundColor":"transparent",
+        "fontFamily":"Roboto, sans-serif",
+        "transition":"height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+}
+
+const styleInput = {
+    "tapHighlightColor":"rgba(0,0,0,0)",
+    "padding":"0",
+    "position":"relative",
+    "height":"100%",
+    //"width":"100%",
+    "border":"none",
+    "outline":"none",
+    "backgroundColor":"transparent",
+    "color":"rgba(0, 0, 0, 0.87)",
+    "font":"inherit",
+    "boxSizing":"border-box",
+    "marginTop":"14px",
+    "marginBottom":"14px"
+}
+
+const styleErrorLabel={
+    "position":"relative",
+    "bottom":"15px",
+    "fontSize":"12px",
+    "lineHeight":"12px",
+    "color":"#f44336",
+    "transition":"all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+}
