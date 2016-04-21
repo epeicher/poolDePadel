@@ -56,26 +56,26 @@ mapDispatchToProps
 
 const styleDiv = {
         "fontSize":"16px",
-        "lineHeight":"24px",
-        "width":"256px",
-        "height":"72px",
+        //"lineHeight":"24px",
+        //"width":"256px",
+        //"height":"72px",
         "display":"inline-block",
         "position":"relative",
-        "backgroundColor":"transparent",
+        //"backgroundColor":"transparent",
         "fontFamily":"Roboto, sans-serif",
         "transition":"height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms"
 }
 
 const styleInput = {
-    "tapHighlightColor":"rgba(0,0,0,0)",
+    //"tapHighlightColor":"rgba(0,0,0,0)",
     "padding":"0",
     "position":"relative",
     "height":"100%",
-    //"width":"100%",
+    "width":"100%",
     "border":"none",
     "outline":"none",
-    "backgroundColor":"transparent",
-    "color":"rgba(0, 0, 0, 0.87)",
+    //"backgroundColor":"transparent",
+    //"color":"rgba(0, 0, 0, 0.87)",
     "font":"inherit",
     "boxSizing":"border-box",
     "marginTop":"14px",
@@ -83,6 +83,7 @@ const styleInput = {
 }
 
 const styleErrorLabel={
+    "paddingTop":"15px",
     "position":"relative",
     "bottom":"15px",
     "fontSize":"12px",
