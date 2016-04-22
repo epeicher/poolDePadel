@@ -4,12 +4,20 @@ class PlayersRepository {
     
   constructor() {
     this.firebaseRef = new Firebase('https://mypooldepadel.firebaseio.com/');
+    this.nextMatchRef = this.firebaseRef.child('matches')
+        .orderByKey()
+        .startAt(this.getToday())
+        .limitToFirst(1)
   }    
   
+  getToday() {
+    let d = new Date();
+    return d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + d.getDate();
+  }
+  
   getNextMatch() {
-    new Promise((resolve, reject) => {
-      this.firebaseRef.child('matches').orderByKey().limitToLast(1)
-        .on("value", (snapshot) => {
+    return new Promise((resolve, reject) => {
+      this.nextMatchRef.on("value", (snapshot) => {
           resolve(snapshot.val());
         })
     })
@@ -25,7 +33,7 @@ class PlayersRepository {
   }
   
   getSelectedPlayers(cb) {
-		this.firebaseRef.child('matches').orderByKey().limitToLast(1)
+		this.nextMatchRef
 		.on("value", (snapshot) => {
 			let selectedPlayers = [];
 			snapshot.forEach(match => {
@@ -48,7 +56,7 @@ class PlayersRepository {
       });
       let p = {};
       p[playerName] = selectedPlayer;
-      this.firebaseRef.child('matches').orderByKey().limitToLast(1)
+      this.nextMatchRef
       .once("value", (snapshot) => {
       	snapshot.forEach(d => {
       		d.ref().child('selectedPlayers').update(p);
@@ -57,7 +65,7 @@ class PlayersRepository {
 	}
 
 	updateConfirmedPlayer(playerName) {
-      this.firebaseRef.child('matches').orderByKey().limitToLast(1)
+      this.nextMatchRef
       .once("value", (snapshot) => {
       	snapshot.forEach(d => {
       		d.ref().child('selectedPlayers/'+playerName).update({confirmed:true});
@@ -80,7 +88,7 @@ class PlayersRepository {
   }
 
   removeFromSelectedPlayers(playerName) {
-    this.firebaseRef.child('matches').orderByKey().limitToLast(1)
+    this.nextMatchRef
       .once("value", (snapshot) => {
         snapshot.forEach(d => {
           d.ref().child('selectedPlayers/'+playerName).remove();
