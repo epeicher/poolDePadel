@@ -5,6 +5,16 @@ class PlayersRepository {
   constructor() {
     this.firebaseRef = new Firebase('https://mypooldepadel.firebaseio.com/');
   }    
+  
+  getNextMatch() {
+    new Promise((resolve, reject) => {
+      this.firebaseRef.child('matches').orderByKey().limitToLast(1)
+        .on("value", (snapshot) => {
+          resolve(snapshot.val());
+        })
+    })
+    
+  }
 
   getPlayers(cb) {
 		this.firebaseRef.child('availablePlayers').on("value", (snapshot) => {

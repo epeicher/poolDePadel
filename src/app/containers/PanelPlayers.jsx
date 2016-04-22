@@ -5,6 +5,7 @@ import ListAvailablePlayers from '../components/ListAvailablePlayers';
 import ListSelectedPlayers from '../components/ListSelectedPlayers';
 import PlayersRepository from '../services/PlayersRepository';
 import DragAndDropService from '../services/dragAndDropService';
+import AppBar from 'material-ui/lib/app-bar';
 
 
 class PanelPlayers extends React.Component {
@@ -14,6 +15,10 @@ class PanelPlayers extends React.Component {
     
     this.playersRepo = new PlayersRepository();
     this.dragAndDropService = new DragAndDropService();
+  }
+  
+  componentWillMount() {
+    this.playersRepo.getNextMatch().then(m => this.setState({nextMatch: m}));
   }
   
   componentDidMount() {
@@ -28,6 +33,7 @@ class PanelPlayers extends React.Component {
     
     return (
         <div>
+          <AppBar title={this.state.nextMatch} iconElementLeft="" />
             <GridList padding={10}>
                 <Paper zDepth={2} children={
                     <ListAvailablePlayers 
