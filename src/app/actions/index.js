@@ -18,6 +18,15 @@ export function getAvailablePlayers() {
 	}
 }
 
+export function getNextMatch() {
+	return (dispatch) => {
+		repo.getNextMatch().then(nm => 
+		{
+			dispatch({type: 'NEXT_MATCH', nextMatch: nm})
+		});
+	}
+}
+
 export function updateSelectedPlayer(playerName) {
     repo.updateSelectedPlayer(playerName);
 }

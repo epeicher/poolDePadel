@@ -1,5 +1,5 @@
 
-const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[]}, action) => {
+const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[], nextMatch: undefined}, action) => {
 	
 	switch(action.type) {
 
@@ -9,7 +9,8 @@ const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[]}, acti
 					//...state.selectedPlayers,
 					...action.selectedPlayers
 				],
-				availablePlayers: [...state.availablePlayers]
+				availablePlayers: [...state.availablePlayers],
+				nextMatch: state.nextMatch
 			}
 		case 'AVAILABLE_PLAYERS':
 			return {
@@ -17,14 +18,21 @@ const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[]}, acti
 				availablePlayers: [
 					//...state.availablePlayers,
 					...action.availablePlayers
-				]
+				],
+				nextMatch: state.nextMatch
 			}
 		case 'ADDED_PLAYER':
 		case 'ADDING_PLAYER':
-			
 			return {
 				addedPlayer: action.playerName
-			}			
+			}
+		case 'NEXT_MATCH':
+			return {
+				nextMatch: action.nextMatch,
+				selectedPlayers: [...state.selectedPlayers],
+				availablePlayers: [...state.availablePlayers]
+			}
+			return state;			
 		default:
 			return state;
 	}

@@ -7,6 +7,7 @@ import PlayersRepository from '../services/PlayersRepository';
 import DragAndDropService from '../services/dragAndDropService';
 import AppBar from 'material-ui/lib/app-bar';
 import IconButton from 'material-ui/lib/icon-button';
+import MatchDateSelector from './MatchDateSelector'
 
 
 class PanelPlayers extends React.Component {
@@ -16,12 +17,6 @@ class PanelPlayers extends React.Component {
     
     this.playersRepo = new PlayersRepository();
     this.dragAndDropService = new DragAndDropService();
-  }
-  
-  componentWillMount() {
-    this.playersRepo.getNextMatch().then(m => {
-      if(m && Object.keys(m))
-        this.setState({nextMatch: Object.keys(m)[0]})});
   }
   
   componentDidMount() {
@@ -36,10 +31,10 @@ class PanelPlayers extends React.Component {
     
     return (
         <div>
-          <AppBar title={this.state && this.state.nextMatch} iconElementLeft={<IconButton />} />
+          <MatchDateSelector />
             <GridList padding={10}>
                 <Paper zDepth={2} children={
-                    <ListAvailablePlayers 
+                    <ListAvailablePlayers
                       containerId='containerLeft' 
                     />} />
                 <Paper zDepth={2} children={

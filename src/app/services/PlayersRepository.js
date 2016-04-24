@@ -18,7 +18,15 @@ class PlayersRepository {
   getNextMatch() {
     return new Promise((resolve, reject) => {
       this.nextMatchRef.on("value", (snapshot) => {
-          resolve(snapshot.val());
+          let dateObj = snapshot.val();
+          let objKeys = Object.keys(dateObj);
+          if(dateObj && objKeys) {
+            let dateMatch = objKeys[0]
+            resolve(dateMatch);
+          }
+          else {
+            resolve();
+          }
         })
     })
     
