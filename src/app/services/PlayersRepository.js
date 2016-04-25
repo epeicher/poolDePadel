@@ -19,17 +19,22 @@ class PlayersRepository {
     return new Promise((resolve, reject) => {
       this.nextMatchRef.on("value", (snapshot) => {
           let dateObj = snapshot.val();
-          let objKeys = Object.keys(dateObj);
-          if(dateObj && objKeys) {
-            let dateMatch = objKeys[0]
-            resolve(dateMatch);
+          if(dateObj && typeof dateObj === 'object')
+          {
+            let objKeys = Object.keys(dateObj);
+            if(dateObj && objKeys) {
+              let dateMatch = objKeys[0]
+              resolve(dateMatch);
+            }
+            else {
+              reject('No hay partido configurado');
+            }
           }
           else {
-            resolve();
+            reject('No hay partido configurado');
           }
         })
-    })
-    
+    })    
   }
 
   getPlayers(cb) {
@@ -58,10 +63,9 @@ class PlayersRepository {
 	updateSelectedPlayer(playerName) {
       let selectedPlayer;
       this.firebaseRef.child('availablePlayers/'+playerName)
-      .once("value", (snapshot) => {
-      	snapshot.ref().update({selected:true});
-      	selectedPlayer = snapshot.val();
-      });
+        .once("value", (snapshot) => {
+          selectedPlayer = snapshot.val();
+        });
       let p = {};
       p[playerName] = selectedPlayer;
       this.nextMatchRef

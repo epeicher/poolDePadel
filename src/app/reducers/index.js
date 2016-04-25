@@ -1,5 +1,7 @@
+import { combineReducers } from 'redux'
+import {reducer as formReducer} from 'redux-form';
 
-const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[], nextMatch: undefined}, action) => {
+const players = (state = {selectedPlayers:[], availablePlayers:[]}, action) => {
 	
 	switch(action.type) {
 
@@ -9,8 +11,7 @@ const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[], nextM
 					//...state.selectedPlayers,
 					...action.selectedPlayers
 				],
-				availablePlayers: [...state.availablePlayers],
-				nextMatch: state.nextMatch
+				availablePlayers: [...state.availablePlayers]
 			}
 		case 'AVAILABLE_PLAYERS':
 			return {
@@ -18,27 +19,42 @@ const selectedPlayers = (state = {selectedPlayers:[], availablePlayers:[], nextM
 				availablePlayers: [
 					//...state.availablePlayers,
 					...action.availablePlayers
-				],
-				nextMatch: state.nextMatch
+				]
 			}
-		case 'ADDED_PLAYER':
-		case 'ADDING_PLAYER':
-			return {
-				addedPlayer: action.playerName
-			}
-		case 'NEXT_MATCH':
-			return {
-				nextMatch: action.nextMatch,
-				selectedPlayers: [...state.selectedPlayers],
-				availablePlayers: [...state.availablePlayers]
-			}
-			return state;			
 		default:
 			return state;
 	}
 }
 
-export default selectedPlayers;
+const addPlayers = (state = {}, action) => {
+	switch(action.type) {
+		case 'ADDED_PLAYER':
+		case 'ADDING_PLAYER':
+			return {
+				addedPlayer: action.playerName
+			}	
+		default:
+			return state;			
+	}
+}
+
+const nextMatch = (state = {}, action) => {
+	switch(action.type) {
+		case 'NEXT_MATCH':
+			return {
+				matchDate: action.nextMatch
+			}
+		default:
+			return state;			
+	}
+}
+
+export default combineReducers({
+  players,
+  addPlayers,
+  nextMatch,
+  form: formReducer
+})
 
 export function validateAddPlayer(state) {
 	if(!!!state.addedPlayer) {
@@ -50,3 +66,4 @@ export function validateAddPlayer(state) {
 export function getAddedPlayer(state) {
 	return state.addedPlayer;
 }
+

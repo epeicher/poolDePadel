@@ -31,7 +31,7 @@ class MatchDateSelector extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-      matchDate: state.rootReducer.nextMatch
+      matchDate: state.nextMatch.matchDate
   }
 }
 

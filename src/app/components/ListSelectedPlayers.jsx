@@ -49,7 +49,7 @@ class ListSelectedPlayers extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    selectedPlayers: state.rootReducer.selectedPlayers
+    selectedPlayers: state.players.selectedPlayers
   }
 }
 

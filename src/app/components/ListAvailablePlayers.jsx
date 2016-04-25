@@ -7,6 +7,7 @@ import ActionGrade from 'material-ui/lib/svg-icons/action/grade';
 import Colors from 'material-ui/lib/styles/colors';
 import { connect } from 'react-redux'
 import { getAvailablePlayers, updateSelectedPlayer } from '../actions'
+import _ from 'lodash'
 
 class ListAvailablePlayers extends React.Component { 
 /*
@@ -26,7 +27,15 @@ class ListAvailablePlayers extends React.Component {
 	    this.props.dispatch(getAvailablePlayers());
     }
     
+    isSelectedPlayer(selPlayers, player) {
+
+        if(!selPlayers || !player) return false;        
+        return _.findIndex(selPlayers, e => e.name.toLowerCase() === player.name.toLowerCase()) !== -1;
+    }
+    
     render() {
+        
+        const {availablePlayers, selectedPlayers} = this.props;
 
         const styleSelected = {
             backgroundColor:Colors.tealA700
@@ -41,7 +50,7 @@ class ListAvailablePlayers extends React.Component {
         <div>
             <List id={this.props.containerId} subheader="Jugadores disponibles">
             {    
-            this.props.availablePlayers.map((player,idx) => {   
+            availablePlayers.map((player,idx) => {   
                 return (
                 <ListItem
                     //style={player.selected ? styleSelected : styleStandard}
@@ -50,7 +59,7 @@ class ListAvailablePlayers extends React.Component {
                     value={idx}
                     primaryText={player.name}
                     leftAvatar={<Avatar src={player.img} />}
-                    {...player.selected ? 
+                    {...this.isSelectedPlayer(selectedPlayers, player) ? 
                         {rightIcon: iconSelected}:
                         {rightIcon: iconNotSelected}}
                     onTouchTap={this.handleClick}
@@ -66,10 +75,10 @@ class ListAvailablePlayers extends React.Component {
     
 }
 
-const mapStateToProps = (state) => {   
-
+const mapStateToProps = (state) => {
+     
   return {
-      availablePlayers: state.rootReducer.availablePlayers
+      ...state.players
   }
 }
 
