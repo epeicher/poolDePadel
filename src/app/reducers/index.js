@@ -38,11 +38,17 @@ const addPlayers = (state = {}, action) => {
 	}
 }
 
-const nextMatch = (state = {}, action) => {
+const matches = (state = {matches: []}, action) => {
 	switch(action.type) {
 		case 'NEXT_MATCH':
 			return {
-				matchDate: action.nextMatch
+				matchDate: action.nextMatch,
+				matches: state.matches
+			}
+		case 'LIST_MATCHES':
+			return {
+				matchDate: state.matchDate,
+				matches: action.matches
 			}
 		default:
 			return state;			
@@ -52,7 +58,7 @@ const nextMatch = (state = {}, action) => {
 export default combineReducers({
   players,
   addPlayers,
-  nextMatch,
+  matches,
   form: formReducer
 })
 

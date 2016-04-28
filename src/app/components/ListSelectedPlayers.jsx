@@ -19,7 +19,7 @@ class ListSelectedPlayers extends React.Component {
     
     componentWillReceiveProps(nextProps) {
       if(nextProps.matchDate !== this.props.matchDate){
-	      this.props.dispatch(getSelectedPlayers(this.props.matchDate));
+	      this.props.dispatch(getSelectedPlayers(nextProps.matchDate));
       }
     }
 
@@ -52,7 +52,7 @@ class ListSelectedPlayers extends React.Component {
 const mapStateToProps = (state) => {
   return {
     selectedPlayers: state.players.selectedPlayers,
-    matchDate: state.nextMatch.matchDate
+    matchDate: state.matches.matchDate
   }
 }
 

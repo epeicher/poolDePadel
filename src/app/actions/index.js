@@ -4,7 +4,7 @@ const repo = new PlayersRepository();
 
 export function getSelectedPlayers(dt) {
 	return (dispatch) => {
-		repo.getSelectedPlayers(dt).then(
+		repo.getSelectedPlayers(dt, 
 			p => dispatch({type:'SELECTED_PLAYERS', selectedPlayers:p}),
 			e => dispatch({type: 'SELECTED_PLAYERS', selectedPlayers:[]})
 		);
@@ -28,8 +28,14 @@ export function getNextMatch() {
 	}
 }
 
-export function updateSelectedPlayer(playerName) {
-    repo.updateSelectedPlayer(playerName);
+export function getMatchesDates() {
+	return (dispatch) => {
+		repo.getMatchesDates().then(ms => dispatch({type: 'LIST_MATCHES', matches: ms}))
+	}
+}
+
+export function updateSelectedPlayer(playerName, dt) {
+    repo.updateSelectedPlayer(playerName, dt);
 }
     
 export function updateConfirmedPlayer(playerName) {

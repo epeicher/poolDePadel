@@ -17,10 +17,11 @@ class ListAvailablePlayers extends React.Component {
 */  
     constructor(props){
         super(props);
+        this.handleClick = this.handleClick.bind(this);
     }
     
     handleClick(e,index) {
-        updateSelectedPlayer(e.currentTarget.id)
+        updateSelectedPlayer(e.currentTarget.id, this.props.matchDate)
     }
 
     componentWillMount() {
@@ -76,9 +77,10 @@ class ListAvailablePlayers extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-     
+     console.log(state.matches);
   return {
-      ...state.players
+      ...state.players,
+    matchDate: state.matches.matchDate
   }
 }
 

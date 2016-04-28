@@ -36,7 +36,20 @@ class PlayersRepository {
         })
     })    
   }
-
+  
+  getMatchesDates() {
+    return new Promise((resolve, reject) => {
+      this.firebaseRef
+        .child("matches").once("value", sp => {
+          let matches = [];
+          sp.forEach(data => {
+            matches.push(data.key());
+          })
+          resolve(matches);
+        })
+    });
+  }
+  
   getPlayers(cb) {
 		this.firebaseRef.child('availablePlayers').on("value", (snapshot) => {
 			let availablePlayers = [];
@@ -45,12 +58,10 @@ class PlayersRepository {
 		});
   }
   
-  getSelectedPlayers(dt) {
-    console.log(dt);
-    return new Promise((resolve, reject) => {
+  getSelectedPlayers(dt, cb, err) {
       
       if(!dt) {
-        reject()
+        err()
       } else {
         this.firebaseRef
           .child("matches")
@@ -61,13 +72,12 @@ class PlayersRepository {
             sp.forEach(data => {
                             selectedPlayers.push(data.val())
                         });
-            resolve(selectedPlayers);
+            cb(selectedPlayers);
           });
       }
-    })
   }
 	
-	updateSelectedPlayer(playerName) {
+	updateSelectedPlayer(playerName,dt) {
       let selectedPlayer;
       this.firebaseRef.child('availablePlayers/'+playerName)
         .once("value", (snapshot) => {
@@ -75,12 +85,10 @@ class PlayersRepository {
         });
       let p = {};
       p[playerName] = selectedPlayer;
-      this.nextMatchRef
-      .once("value", (snapshot) => {
-      	snapshot.forEach(d => {
-      		d.ref().child('selectedPlayers').update(p);
-      	});
-      });
+      this.firebaseRef
+          .child("matches")
+          .child(dt)
+          .child('selectedPlayers').update(p);
 	}
 
 	updateConfirmedPlayer(playerName) {
