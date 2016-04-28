@@ -16,9 +16,11 @@ class ListSelectedPlayers extends React.Component {
         let id = e.target.parentNode.parentNode.id;
         updateConfirmedPlayer(id);
     }
-
-    componentWillMount() {
-	    this.props.dispatch(getSelectedPlayers());
+    
+    componentWillReceiveProps(nextProps) {
+      if(nextProps.matchDate !== this.props.matchDate){
+	      this.props.dispatch(getSelectedPlayers(this.props.matchDate));
+      }
     }
 
     
@@ -49,7 +51,8 @@ class ListSelectedPlayers extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    selectedPlayers: state.players.selectedPlayers
+    selectedPlayers: state.players.selectedPlayers,
+    matchDate: state.nextMatch.matchDate
   }
 }
 

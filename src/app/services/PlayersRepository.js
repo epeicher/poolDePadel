@@ -45,19 +45,26 @@ class PlayersRepository {
 		});
   }
   
-  getSelectedPlayers(cb) {
-		this.nextMatchRef
-		.on("value", (snapshot) => {
-			let selectedPlayers = [];
-			snapshot.forEach(match => {
-				match.ref().child('selectedPlayers').once("value", sp => {
-					sp.forEach(data => {
-                        selectedPlayers.push(data.val())
-                    });
-				});
-			});
-			cb(selectedPlayers);
-		});
+  getSelectedPlayers(dt) {
+    console.log(dt);
+    return new Promise((resolve, reject) => {
+      
+      if(!dt) {
+        reject()
+      } else {
+        this.firebaseRef
+          .child("matches")
+          .child(dt)
+          .child('selectedPlayers')
+          .on("value", sp =>  {
+            let selectedPlayers = [];
+            sp.forEach(data => {
+                            selectedPlayers.push(data.val())
+                        });
+            resolve(selectedPlayers);
+          });
+      }
+    })
   }
 	
 	updateSelectedPlayer(playerName) {

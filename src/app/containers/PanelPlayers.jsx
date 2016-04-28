@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import GridList from 'material-ui/lib/grid-list/grid-list';
 import Paper from 'material-ui/lib/paper';
 import ListAvailablePlayers from '../components/ListAvailablePlayers';
@@ -8,9 +9,14 @@ import DragAndDropService from '../services/dragAndDropService';
 import AppBar from 'material-ui/lib/app-bar';
 import IconButton from 'material-ui/lib/icon-button';
 import MatchDateSelector from './MatchDateSelector'
+import { getNextMatch } from '../actions'
 
 
 class PanelPlayers extends React.Component {
+  
+  static propTypes = {
+	  dispatch: React.PropTypes.func.isRequired
+	}
     
   constructor(props) {
     super(props);
@@ -18,6 +24,10 @@ class PanelPlayers extends React.Component {
     this.playersRepo = new PlayersRepository();
     this.dragAndDropService = new DragAndDropService();
   }
+  
+  componentWillMount() {
+    this.props.dispatch(getNextMatch());
+  } 
   
   componentDidMount() {
     this.dragAndDropService.configureContainers(document.getElementById('containerLeft'), document.getElementById('containerRight'));
@@ -48,4 +58,4 @@ class PanelPlayers extends React.Component {
   }
 }
 
-export default PanelPlayers;
+export default connect()(PanelPlayers);

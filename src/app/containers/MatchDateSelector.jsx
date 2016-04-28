@@ -16,15 +16,12 @@ class MatchDateSelector extends React.Component {
 
     constructor(props){
         super(props);
+        this.handleClick = this.handleClick.bind(this);
     }
-    
-  componentWillMount() {
-      this.props.dispatch(getNextMatch());
-  }    
+      
   
-  handleClick(e,v,c) {
-      // TODO: Add the action duuude
-      console.log(e.target.innerHTML);
+  handleClick(e) {
+      this.props.dispatch({type: 'NEXT_MATCH', nextMatch: e.target.innerHTML});
   }
     
     render() {

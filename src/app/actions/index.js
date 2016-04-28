@@ -2,11 +2,12 @@ import PlayersRepository from '../services/PlayersRepository'
 
 const repo = new PlayersRepository();
 
-export function getSelectedPlayers() {
+export function getSelectedPlayers(dt) {
 	return (dispatch) => {
-		repo.getSelectedPlayers((p) => {
-			dispatch({type:'SELECTED_PLAYERS', selectedPlayers:p});
-		});
+		repo.getSelectedPlayers(dt).then(
+			p => dispatch({type:'SELECTED_PLAYERS', selectedPlayers:p}),
+			e => dispatch({type: 'SELECTED_PLAYERS', selectedPlayers:[]})
+		);
 	}
 }
 
