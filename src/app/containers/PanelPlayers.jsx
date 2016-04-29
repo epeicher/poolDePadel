@@ -14,10 +14,6 @@ import { getNextMatch } from '../actions'
 
 class PanelPlayers extends React.Component {
   
-  static propTypes = {
-	  dispatch: React.PropTypes.func.isRequired
-	}
-    
   constructor(props) {
     super(props);
     
@@ -32,8 +28,8 @@ class PanelPlayers extends React.Component {
   componentDidMount() {
     this.dragAndDropService.configureContainers(document.getElementById('containerLeft'), document.getElementById('containerRight'));
     this.dragAndDropService.onRemoveRightItem(el => {
-      let player = el.querySelectorAll('[id]')[0].id; // <- Don't know how to do it better
-      this.playersRepo.updatePlayerRejecting(player);
+      let player = el.querySelectorAll('[id]')[0].id; // <- Don't know how to do it better      
+      this.playersRepo.updatePlayerRejecting(player, this.props.matchSelected);
     });
   }
 
@@ -58,4 +54,10 @@ class PanelPlayers extends React.Component {
   }
 }
 
-export default connect()(PanelPlayers);
+export default connect(  
+  (st) => {
+    return {
+      matchSelected: st.matches.matchDate
+    }
+  }
+)(PanelPlayers);

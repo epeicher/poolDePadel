@@ -100,28 +100,26 @@ class PlayersRepository {
       });
 	}
 
-  updatePlayerRejecting(playerName){
-    this.updateAvailableplayerToUnselected(playerName);
-    this.removeFromSelectedPlayers(playerName);
+  updatePlayerRejecting(playerName, dt){
+    return new Promise((resolve, reject) => {
+      if(dt) {
+          resolve(
+            this.firebaseRef
+              .child("matches")
+              .child(dt)
+              .child('selectedPlayers')
+              .child(playerName)
+              .remove()
+          )
+      } else {
+        reject()
+      }      
+    })
   }
 
 	abort() {
 		this.firebaseRef.off();
 	}
-
-  updateAvailableplayerToUnselected(playerName) {
-    this.firebaseRef.child('availablePlayers/'+playerName)
-    .update({selected:false});
-  }
-
-  removeFromSelectedPlayers(playerName) {
-    this.nextMatchRef
-      .once("value", (snapshot) => {
-        snapshot.forEach(d => {
-          d.ref().child('selectedPlayers/'+playerName).remove();
-        });
-      });
-  }
   
   addPlayer(playerName){
     return new Promise((resolve, reject) => {

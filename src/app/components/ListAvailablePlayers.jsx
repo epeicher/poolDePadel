@@ -10,11 +10,7 @@ import { getAvailablePlayers, updateSelectedPlayer } from '../actions'
 import _ from 'lodash'
 
 class ListAvailablePlayers extends React.Component { 
-/*
-	static propTypes = {
-		dispatch: React.PropTypes.func.isRequired
-	}
-*/  
+
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -77,7 +73,6 @@ class ListAvailablePlayers extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-     console.log(state.matches);
   return {
       ...state.players,
     matchDate: state.matches.matchDate

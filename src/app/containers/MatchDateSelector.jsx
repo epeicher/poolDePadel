@@ -10,10 +10,6 @@ import {Link} from 'react-router'
 
 class MatchDateSelector extends React.Component {
     
-    static propTypes = {
-		dispatch: React.PropTypes.func.isRequired
-	}
-
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
