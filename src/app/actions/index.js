@@ -38,8 +38,9 @@ export function updateSelectedPlayer(playerName, dt) {
     repo.updateSelectedPlayer(playerName, dt);
 }
     
-export function updateConfirmedPlayer(playerName) {
-    repo.updateConfirmedPlayer(playerName);
+export function updateConfirmedPlayer(playerName, dt) {
+    repo.updateConfirmedPlayer(playerName, dt)
+		.catch((error) => console.error("Error confirming player", playerName,dt));
 }
 
 export function addPlayerPromise(playerName) {

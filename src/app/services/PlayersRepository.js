@@ -1,4 +1,5 @@
 import Firebase from 'firebase';
+import _ from 'lodash'
 
 class PlayersRepository {
     
@@ -68,11 +69,7 @@ class PlayersRepository {
           .child(dt)
           .child('selectedPlayers')
           .on("value", sp =>  {
-            let selectedPlayers = [];
-            sp.forEach(data => {
-                            selectedPlayers.push(data.val())
-                        });
-            cb(selectedPlayers);
+            cb(_.values(sp.val()))
           });
       }
   }
@@ -91,13 +88,22 @@ class PlayersRepository {
           .child('selectedPlayers').update(p);
 	}
 
-	updateConfirmedPlayer(playerName) {
-      this.nextMatchRef
-      .once("value", (snapshot) => {
-      	snapshot.forEach(d => {
-      		d.ref().child('selectedPlayers/'+playerName).update({confirmed:true});
-      	});
-      });
+	updateConfirmedPlayer(playerName, dt) {
+    return new Promise((resolve, reject) => {
+      if(dt) {
+        resolve(
+          this.firebaseRef
+            .child("matches")
+            .child(dt)
+            .child('selectedPlayers')
+            .child(playerName)
+            .update({confirmed:true})
+        )
+      }
+      else {
+        reject()
+      }
+    })
 	}
 
   updatePlayerRejecting(playerName, dt){

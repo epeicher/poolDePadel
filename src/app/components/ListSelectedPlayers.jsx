@@ -10,11 +10,13 @@ class ListSelectedPlayers extends React.Component {
     
     constructor(props){
         super(props);
+        
+        this.playerConfirmed = this.playerConfirmed.bind(this);
     }
     
     playerConfirmed(e) {
         let id = e.target.parentNode.parentNode.id;
-        updateConfirmedPlayer(id);
+        updateConfirmedPlayer(id, this.props.matchDate);
     }
     
     componentWillReceiveProps(nextProps) {

@@ -27,7 +27,12 @@ class ListAvailablePlayers extends React.Component {
     isSelectedPlayer(selPlayers, player) {
 
         if(!selPlayers || !player) return false;        
-        return _.findIndex(selPlayers, e => e.name.toLowerCase() === player.name.toLowerCase()) !== -1;
+        return _.findIndex(selPlayers, e => {
+            if(e.name)
+                e.name.toLowerCase() === player.name.toLowerCase()
+            else
+                false
+        }) !== -1;
     }
     
     render() {
