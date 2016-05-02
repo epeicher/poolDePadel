@@ -19,6 +19,10 @@ class ListSelectedPlayers extends React.Component {
         updateConfirmedPlayer(id, this.props.matchDate);
     }
     
+    componentWillMount(){
+      this.props.dispatch(getSelectedPlayers(this.props.matchDate));
+    }
+    
     componentWillReceiveProps(nextProps) {
       if(nextProps.matchDate !== this.props.matchDate){
 	      this.props.dispatch(getSelectedPlayers(nextProps.matchDate));

@@ -5,20 +5,25 @@ class PlayersRepository {
     
   constructor() {
     this.firebaseRef = new Firebase('https://mypooldepadel.firebaseio.com/');
-    this.nextMatchRef = this.firebaseRef.child('matches')
-        .orderByKey()
-        .startAt(this.getToday())
-        .limitToFirst(1)
   }    
   
   getToday() {
     let d = new Date();
-    return d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + d.getDate();
+    let today = d.getFullYear() + "-" + this.padLeftZero(d.getMonth()) + "-" + this.padLeftZero(d.getDate());
+    return today;
+  }
+  
+  padLeftZero(n){
+    return ("0"+n).slice(-2);
   }
   
   getNextMatch() {
     return new Promise((resolve, reject) => {
-      this.nextMatchRef.on("value", (snapshot) => {
+      this.firebaseRef.child('matches')
+        .orderByKey()
+        .startAt(this.getToday())
+        .limitToFirst(1)
+        .once("value", (snapshot) => {
           let dateObj = snapshot.val();
           if(dateObj && typeof dateObj === 'object')
           {

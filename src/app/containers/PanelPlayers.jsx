@@ -10,6 +10,7 @@ import AppBar from 'material-ui/lib/app-bar';
 import IconButton from 'material-ui/lib/icon-button';
 import MatchDateSelector from './MatchDateSelector'
 import { getNextMatch } from '../actions'
+import { browserHistory } from 'react-router'
 
 
 class PanelPlayers extends React.Component {
@@ -23,6 +24,7 @@ class PanelPlayers extends React.Component {
   
   componentWillMount() {
     this.props.dispatch(getNextMatch());
+    if(!this.props.user) browserHistory.push('/login')
   } 
   
   componentDidMount() {
@@ -57,7 +59,8 @@ class PanelPlayers extends React.Component {
 export default connect(  
   (st) => {
     return {
-      matchSelected: st.matches.matchDate
+      matchSelected: st.matches.matchDate,
+      user: st.login.user
     }
   }
 )(PanelPlayers);

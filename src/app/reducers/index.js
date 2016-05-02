@@ -54,11 +54,22 @@ const matches = (state = {matches: []}, action) => {
 			return state;			
 	}
 }
+const login = (state = {}, action) => {
+	switch(action.type) {
+		case 'USER_LOGGED_IN':
+			return {
+				user: action.user
+			}
+		default:
+			return state;
+	}
+}
 
 export default combineReducers({
   players,
   addPlayers,
   matches,
+  login,
   form: formReducer
 })
 

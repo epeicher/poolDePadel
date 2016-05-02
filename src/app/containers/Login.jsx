@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import {Card, CardText, RaisedButton} from 'material-ui';
 import login from '../services/login';
 import { browserHistory } from 'react-router'
@@ -7,9 +8,17 @@ import TextField from 'material-ui/lib/text-field'
 import FontIcon from 'material-ui/lib/font-icon'
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
     onClick(){
-      login(browserHistory);
+      login()
+      .then(user => {
+        this.props.dispatch({type: 'USER_LOGGED_IN', user:user})
+        browserHistory.push('/convocatoria')
+      })
+      .catch(error => console.error(error));
     }
     
     render() {
@@ -19,7 +28,7 @@ class Login extends React.Component {
             <Card style={{
               'maxWidth': '800px',
               'margin': '5px auto',
-              'padding': '50px'
+              'padding': '20px'
             }}>
             <form>
               <TextField
@@ -36,39 +45,41 @@ class Login extends React.Component {
                 floatingLabelText="Contraseña"
               /> 
               <br/>
-              <RaisedButton label="Log in" />            
+              <RaisedButton
+                style={{width: 256}} 
+                label="Log in" />            
             </form>
-            </Card>
-            <Card style={{
-              'margin': '5px auto',
-              'padding': '20px'
-            }}>
-            <FlatButton
-              label="Crear usuario"
-            />          
             <br/>
             <FlatButton
+              style={{fontSize: 12, width: 256}}
               label="Recordar contraseña"
+              secondary={true}
             />
+            <br/>
+            <FlatButton
+              style={{fontSize: 12, width: 256}}
+              label="Crear usuario"
+              secondary={true}
+            />          
             </Card>
             <Card style={{
               'margin': '5px auto',
-              'padding': '20px'
+              'padding': '5px'
             }}>
             <FlatButton
-              label="Autentícate con Google"
+              label="Google"
               linkButton={true}
-              href=""
+              //href=""
               secondary={true}
-              icon={<FontIcon className="muidocs-icon-custom-github" />}
+              icon={<FontIcon className="fa fa-google" />}
               onClick={this.onClick.bind(this)}
             />           
             <FlatButton
-              label="Autentícate con Facebook"
+              label="Facebook"
               linkButton={true}
-              href="https://github.com/callemall/material-ui"
+              //href="https://github.com/callemall/material-ui"
               secondary={true}
-              icon={<FontIcon className="muidocs-icon-custom-facebook" />}
+              icon={<FontIcon className="fa fa-facebook-official" />}
             />           
             </Card>
             </div>
@@ -77,4 +88,4 @@ class Login extends React.Component {
 }
 
 
-export default Login;
+export default connect()(Login);

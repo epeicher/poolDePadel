@@ -6,11 +6,17 @@ import {addPlayerPromise} from '../actions'
 import {validateAddPlayer, getAddedPlayer} from '../reducers'
 import { reduxForm } from 'redux-form'
 export const fields = [ 'playerName' ]
+import { browserHistory } from 'react-router'
+
 
 class AddPlayerForm extends React.Component {
     
     constructor(props){
         super(props);
+    }
+    
+    componentWillMount() {
+        if(!this.props.user) browserHistory.push('/login')
     }
     
     render() {
@@ -39,6 +45,12 @@ const validate = values => {
     return errors
 }
 
+const mapStateToProps = (st) => {
+    return {
+        user: st.login.user
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         onSubmit: (data) => addPlayerPromise(data.playerName)
@@ -49,6 +61,7 @@ export default reduxForm({
   form: 'addPlayer',
   fields,
   validate
-},undefined,
+},
+mapStateToProps,
 mapDispatchToProps
 )(AddPlayerForm)

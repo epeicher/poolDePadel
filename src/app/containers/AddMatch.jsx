@@ -5,8 +5,14 @@ import {connect} from 'react-redux';
 import { reduxForm } from 'redux-form'
 import {addMatchPromise} from '../actions'
 export const fields = [ 'matchDate' ]
+import { browserHistory } from 'react-router'
+
 
 class AddMatch extends React.Component {
+    
+    componentWillMount() {
+        if(!this.props.user) browserHistory.push('/login')
+    }
    
     render () {
         const {fields: {matchDate}, error, handleSubmit} = this.props;
@@ -39,6 +45,12 @@ const validate = values => {
     return errors
 }
 
+const mapStateToProps = (st) => {
+    return {
+        user: st.login.user
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         onSubmit: data => addMatchPromise(data.matchDate)
@@ -49,7 +61,8 @@ export default reduxForm({
     form: 'addMatch',
     fields,
     validate
-},undefined,
+},
+mapStateToProps,
 mapDispatchToProps
 )(AddMatch)
 
