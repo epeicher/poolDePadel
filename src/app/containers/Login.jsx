@@ -12,13 +12,15 @@ class Login extends React.Component {
     super(props);
   }
 
-    onClick(){
-      login()
-      .then(user => {
-        this.props.dispatch({type: 'USER_LOGGED_IN', user:user})
-        browserHistory.push('/convocatoria')
-      })
-      .catch(error => console.error(error));
+    onClickHandler(provider){
+      return (e) => {
+        login(provider)
+        .then(user => {
+          this.props.dispatch({type: 'USER_LOGGED_IN', user:user})
+          browserHistory.push('/convocatoria')
+        })
+        .catch(error => console.error(error));
+      }
     }
     
     render() {
@@ -67,12 +69,13 @@ class Login extends React.Component {
               'padding': '5px'
             }}>
             <FlatButton
+              key="google"
               label="Google"
               linkButton={true}
               //href=""
               secondary={true}
               icon={<FontIcon className="fa fa-google" />}
-              onClick={this.onClick.bind(this)}
+              onClick={this.onClickHandler("google")}
             />           
             <FlatButton
               label="Facebook"
@@ -80,6 +83,7 @@ class Login extends React.Component {
               //href="https://github.com/callemall/material-ui"
               secondary={true}
               icon={<FontIcon className="fa fa-facebook-official" />}
+              onClick={this.onClickHandler("facebook")}
             />           
             </Card>
             </div>
