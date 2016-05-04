@@ -53,3 +53,7 @@ export function addMatchPromise(date) {
 		.catch(error => Promise.reject({_error: error}));
 }
     
+export function addUser(userEmail, userPwd) {
+	return repo.addUser(userEmail, userPwd)
+		.catch(error => console.error(error));
+}

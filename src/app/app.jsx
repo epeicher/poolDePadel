@@ -7,6 +7,7 @@ import PanelPlayers from './containers/PanelPlayers';
 import AddPlayer from './containers/AddPlayer';
 import AddMatch from './containers/AddMatch';
 import Login from './containers/Login';
+import AddUser from './containers/AddUser'
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux'
 
@@ -28,6 +29,7 @@ const AppRouter = (props) => {
 			  <Route path="convocatoria" component={PanelPlayers} />
 			  <Route path="addplayer" component={AddPlayer} />
               <Route path="addmatch" component={AddMatch} />
+			  <Route path="adduser" component={AddUser} />
 			</Route>
 		</Router>
 	</Provider>);
