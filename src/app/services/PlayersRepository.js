@@ -161,6 +161,14 @@ class PlayersRepository {
       })
     })
   }
+  
+  addUser(email, pwd) {
+        
+    return this.firebaseRef.createUser({
+      email    : email,
+      password : pwd
+    })
+  }
 
 }
 
