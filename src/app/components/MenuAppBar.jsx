@@ -28,7 +28,10 @@ const MenuAppBar = () => (
         <MenuItem>
             <Link to="/addplayer" style={{textDecoration:'none'}}>Agrega Jugador</Link>
         </MenuItem>
-        <MenuItem primaryText="Partidos" />
+        <MenuItem>
+            <Link to="/changepwd" style={{textDecoration:'none'}}>Cambia Contraseña</Link>
+        </MenuItem>
+
       </IconMenu>
     }
   />
