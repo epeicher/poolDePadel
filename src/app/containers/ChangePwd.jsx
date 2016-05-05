@@ -2,10 +2,11 @@ import React from 'react'
 import { TextField, RaisedButton } from 'material-ui'
 import { connect } from 'react-redux' 
 import { reduxForm } from 'redux-form'
-import { addUser } from '../actions'
+import { changePwd } from '../actions'
 
-const AddUser = (props) => {
-    const {fields: {userEmail, userPassword}, error, handleSubmit} = props;
+
+const ChangePwd = (props) => {
+    const {fields: {userEmail, userOldPassword, userNewPassword}, error, handleSubmit} = props;
     return (
         <form>
             <TextField
@@ -18,17 +19,26 @@ const AddUser = (props) => {
             <br/>
             <TextField
                 id="pwd"
-                hintText="Contraseña"
+                hintText="Contraseña antigua"
                 //errorText={(playerName.touched && playerName.error) || error ? playerName.error || error : ''}
-                floatingLabelText="Contraseña"
+                floatingLabelText="Contraseña nueva"
                 type="password"
-                {...userPassword}
-            /> 
+                {...userOldPassword}
+            />
+            <br/>
+            <TextField
+                id="pwd"
+                hintText="Contraseña nueva"
+                //errorText={(playerName.touched && playerName.error) || error ? playerName.error || error : ''}
+                floatingLabelText="Contraseña antigua"
+                type="password"
+                {...userNewPassword}
+            />              
             <br/>
             <RaisedButton
                 style={{width: 256}} 
                 secondary={true}
-                label="Crea Usuario"
+                label="Cambia Contraseña"
                 onClick={handleSubmit} />            
         </form>
     )
@@ -50,15 +60,16 @@ const mapStateToProps = (st) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmit: (data) => addUser(data.userEmail, data.userPassword)
+        onSubmit: (data) => 
+            changePwd(data.userEmail, data.userOldPassword, data.userNewPassword)
     }
 }
 
 export default reduxForm({
-  form: 'addUser',
-  fields: ['userEmail', 'userPassword'],
+  form: 'changePwd',
+  fields: ['userEmail', 'userOldPassword', 'userNewPassword'],
   validate
 },
 mapStateToProps,
 mapDispatchToProps
-)(AddUser)
+)(ChangePwd)

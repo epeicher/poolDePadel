@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Card, CardText, RaisedButton, CardHeader} from 'material-ui';
-import {login, loginWithPassword} from '../services/login';
+import {login, loginWithPassword, resetPassword} from '../services/login';
 import { browserHistory } from 'react-router'
 import FlatButton from 'material-ui/lib/flat-button'
 import TextField from 'material-ui/lib/text-field'
@@ -37,7 +37,13 @@ class Login extends React.Component {
           browserHistory.push('/convocatoria')
       })
       .catch(error => console.error(error));
-    }       
+    }     
+    
+    onResetPassword() {
+      const email = document.getElementById('LoginUserEmail').value;
+      resetPassword(email)
+      .catch(error => console.error(error));
+    }  
     
     render() {
 
@@ -73,8 +79,9 @@ class Login extends React.Component {
             <br/>
             <FlatButton
               style={{fontSize: 12, width: 256}}
-              label="Recordar contraseña"
+              label="Resetear contraseña"
               secondary={true}
+              onClick={this.onResetPassword.bind(this)}
             />
             <br/>
             <FlatButton
