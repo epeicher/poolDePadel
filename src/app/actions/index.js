@@ -1,4 +1,5 @@
 import PlayersRepository from '../services/PlayersRepository'
+import {changePassword} from '../services/login'
 
 const repo = new PlayersRepository();
 
@@ -55,5 +56,10 @@ export function addMatchPromise(date) {
     
 export function addUser(userEmail, userPwd) {
 	return repo.addUser(userEmail, userPwd)
+		.catch(error => console.error(error));
+}
+
+export function changePwd(userEmail, userOldPwd, userNewPwd) {
+	return changePassword(userEmail, userOldPwd, userNewPwd)
 		.catch(error => console.error(error));
 }
