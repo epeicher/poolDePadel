@@ -20,7 +20,7 @@ const ChangePwd = (props) => {
             <TextField
                 id="pwd"
                 hintText="Contraseña antigua"
-                //errorText={(playerName.touched && playerName.error) || error ? playerName.error || error : ''}
+                errorText={(userOldPassword.touched && userOldPassword.error) || error ? userOldPassword.error || error : ''}
                 floatingLabelText="Contraseña nueva"
                 type="password"
                 {...userOldPassword}
@@ -29,7 +29,7 @@ const ChangePwd = (props) => {
             <TextField
                 id="pwd"
                 hintText="Contraseña nueva"
-                //errorText={(playerName.touched && playerName.error) || error ? playerName.error || error : ''}
+                errorText={(userNewPassword.touched && userNewPassword.error) || error ? userNewPassword.error || error : ''}
                 floatingLabelText="Contraseña antigua"
                 type="password"
                 {...userNewPassword}
@@ -46,9 +46,12 @@ const ChangePwd = (props) => {
 
 const validate = values => {
     const errors = {}
-    // if(!values.playerName) {
-    //     errors.playerName = 'Rellena el Nombre'
-    // }
+    if(!values.userOldPassword) {
+        errors.userOldPassword = 'Rellena la Contraseña anterior'
+    }
+    if(!values.userNewPassword) {
+        errors.userNewPassword = 'Rellena la Contraseña nueva'
+    }
     return errors
 }
 

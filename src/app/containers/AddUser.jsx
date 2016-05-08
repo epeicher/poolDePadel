@@ -3,6 +3,7 @@ import { TextField, RaisedButton } from 'material-ui'
 import { connect } from 'react-redux' 
 import { reduxForm } from 'redux-form'
 import { addUser } from '../actions'
+import { validateEmail } from '../services/validationService'
 
 const AddUser = (props) => {
     const {fields: {userEmail, userPassword}, error, handleSubmit} = props;
@@ -11,7 +12,7 @@ const AddUser = (props) => {
             <TextField
                 id="user"
                 hintText="Email"
-                //errorText={(playerName.touched && playerName.error) || error ? playerName.error || error : ''}
+                errorText={(userEmail.touched && userEmail.error) || error ? userEmail.error || error : ''}
                 floatingLabelText="Email de usuario"
                 {...userEmail}
             />
@@ -19,7 +20,7 @@ const AddUser = (props) => {
             <TextField
                 id="pwd"
                 hintText="Contraseña"
-                //errorText={(playerName.touched && playerName.error) || error ? playerName.error || error : ''}
+                errorText={(userPassword.touched && userPassword.error) || error ? userPassword.error || error : ''}
                 floatingLabelText="Contraseña"
                 type="password"
                 {...userPassword}
@@ -36,9 +37,12 @@ const AddUser = (props) => {
 
 const validate = values => {
     const errors = {}
-    // if(!values.playerName) {
-    //     errors.playerName = 'Rellena el Nombre'
-    // }
+    if(!validateEmail(values.userEmail)) {
+        errors.userEmail = 'Email incorrecto'
+    }
+    if(!values.userPassword) {
+        errors.userPassword = 'Rellena la Contraseña'
+    }
     return errors
 }
 
