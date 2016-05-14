@@ -7,12 +7,13 @@ import {validateAddPlayer, getAddedPlayer} from '../reducers'
 import { reduxForm } from 'redux-form'
 export const fields = [ 'playerName' ]
 import { browserHistory } from 'react-router'
-
+import Snackbar from 'material-ui/lib/Snackbar'
 
 class AddPlayerForm extends React.Component {
     
     constructor(props){
         super(props);
+        this.state={saved:false};
     }
     
     componentWillMount() {
@@ -20,19 +21,27 @@ class AddPlayerForm extends React.Component {
     }
     
     render() {
-        const {fields: {playerName}, error, handleSubmit} = this.props;
-
+        const {fields: {playerName}, error, handleSubmit, onCloseNotification} = this.props;
+        const saved = this.props.saved || false;
         return (
-            <form>
-                <TextField
-                    id="player"
-                    hintText="Nombre"
-                    errorText={(playerName.touched && playerName.error) || error ? playerName.error || error : ''}
-                    floatingLabelText="Nombre del jugador"
-                    {...playerName}
-                    /><br/>
-                <RaisedButton type="button" onClick={handleSubmit}>Guardar</RaisedButton>
-            </form>
+            <div>
+                <form>
+                    <TextField
+                        id="player"
+                        hintText="Nombre"
+                        errorText={(playerName.touched && playerName.error) || error ? playerName.error || error : ''}
+                        floatingLabelText="Nombre del jugador"
+                        {...playerName}
+                        /><br/>
+                    <RaisedButton type="button" onClick={handleSubmit}>Guardar</RaisedButton>
+                </form>
+                <Snackbar
+                    open={saved}
+                    message="Jugador agregado"
+                    autoHideDuration={4000}
+                    onRequestClose={onCloseNotification}
+                />
+            </div>
         );
     }
 }
@@ -47,13 +56,17 @@ const validate = values => {
 
 const mapStateToProps = (st) => {
     return {
-        user: st.login.user
+        user: st.login.user,
+        saved: st.addPlayers.saved
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmit: (data) => addPlayerPromise(data.playerName)
+        onSubmit: (data) => 
+            addPlayerPromise(data.playerName)
+            .then(dispatch({type: 'SAVED_SUCCESSFULLY', saved: true})),
+        onCloseNotification: () => dispatch({type: 'SAVED_SUCCESSFULLY', saved: false})
     }
 }
 

@@ -33,6 +33,11 @@ const addPlayers = (state = {}, action) => {
 			return {
 				addedPlayer: action.playerName
 			}	
+		case 'SAVED_SUCCESSFULLY':
+			return {
+				addedPlayer: state.addedPlayer,
+				saved: action.saved
+			}
 		default:
 			return state;			
 	}
