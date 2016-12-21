@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import GridList from 'material-ui/lib/grid-list/grid-list';
-import Paper from 'material-ui/lib/paper';
+import { GridList } from 'material-ui/GridList';
+import Paper from 'material-ui/Paper';
 import ListAvailablePlayers from '../components/ListAvailablePlayers';
 import ListSelectedPlayers from '../components/ListSelectedPlayers';
 import PlayersRepository from '../services/PlayersRepository';
 import DragAndDropService from '../services/dragAndDropService';
-import AppBar from 'material-ui/lib/app-bar';
-import IconButton from 'material-ui/lib/icon-button';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
 import MatchDateSelector from './MatchDateSelector'
 import { getNextMatch } from '../actions'
 import { browserHistory } from 'react-router'

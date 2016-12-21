@@ -1,8 +1,9 @@
 import React from 'react';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import Checkbox from 'material-ui/lib/checkbox';
-import Toggle from 'material-ui/lib/toggle';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+import Subheader from 'material-ui/Subheader';
+import Checkbox from 'material-ui/Checkbox';
+import Toggle from 'material-ui/Toggle';
 import { connect } from 'react-redux'
 import { getSelectedPlayers, updateConfirmedPlayer } from '../actions'
 
@@ -34,7 +35,8 @@ class ListSelectedPlayers extends React.Component {
 
     return (
       <div>
-        <List id={this.props.containerId} subheader="Jugadores convocados">
+        <List id={this.props.containerId}>
+          <Subheader>Jugadores convocados</Subheader>
         {		
           this.props.selectedPlayers.map(player => {
             return (

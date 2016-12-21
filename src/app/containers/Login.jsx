@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {Card, CardText, RaisedButton, CardHeader} from 'material-ui';
 import {login, loginWithPassword, resetPassword} from '../services/login';
 import { browserHistory } from 'react-router'
-import FlatButton from 'material-ui/lib/flat-button'
-import TextField from 'material-ui/lib/text-field'
-import FontIcon from 'material-ui/lib/font-icon'
+import FlatButton from 'material-ui/FlatButton'
+import TextField from 'material-ui/TextField';
+import FontIcon from 'material-ui/FontIcon'
 import { withRouter } from 'react-router'
 
 class Login extends React.Component {
@@ -100,24 +100,18 @@ class Login extends React.Component {
             <FlatButton
               key="google"
               label="Google"
-              linkButton={true}
-              //href=""
               secondary={true}
               icon={<FontIcon className="fa fa-google" />}
               onClick={this.onClickHandler("google")}
             />           
             <FlatButton
               label="Facebook"
-              linkButton={true}
-              //href="https://github.com/callemall/material-ui"
               secondary={true}
               icon={<FontIcon className="fa fa-facebook-official" />}
               onClick={this.onClickHandler("facebook")}
             />  
             <FlatButton
               label="Twitter"
-              linkButton={true}
-              //href="https://github.com/callemall/material-ui"
               secondary={true}
               icon={<FontIcon className="fa fa-twitter" />}
               onClick={this.onClickHandler("twitter")}

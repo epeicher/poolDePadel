@@ -1,29 +1,43 @@
 import React from 'react'
 import { TextField, RaisedButton } from 'material-ui'
 import { connect } from 'react-redux' 
-import { reduxForm } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import { addUser } from '../actions'
 import { validateEmail } from '../services/validationService'
 
+const renderInput = field => {
+    return  (
+        <div>
+            <TextField id={field.id}
+                {...field.input}
+                hintText={field.hintText}
+                errorText={field.meta.touched && field.meta.error}
+                floatingLabelText={field.floatingLabelText}
+                type={field.type}
+            />
+        </div>
+    )
+}
+
 const AddUser = (props) => {
-    const {fields: {userEmail, userPassword}, error, handleSubmit} = props;
+    const { handleSubmit} = props;
     return (
         <form>
-            <TextField
+            <Field
                 id="user"
+                name="userEmail"
                 hintText="Email"
-                errorText={(userEmail.touched && userEmail.error) || error ? userEmail.error || error : ''}
                 floatingLabelText="Email de usuario"
-                {...userEmail}
+                component={renderInput}
             />
             <br/>
-            <TextField
+            <Field
                 id="pwd"
+                name="userPassword"
                 hintText="Contraseña"
-                errorText={(userPassword.touched && userPassword.error) || error ? userPassword.error || error : ''}
                 floatingLabelText="Contraseña"
                 type="password"
-                {...userPassword}
+                component={renderInput}
             /> 
             <br/>
             <RaisedButton
@@ -58,11 +72,10 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default reduxForm({
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(reduxForm({
   form: 'addUser',
-  fields: ['userEmail', 'userPassword'],
   validate
-},
-mapStateToProps,
-mapDispatchToProps
-)(AddUser)
+})(AddUser))

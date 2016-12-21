@@ -1,30 +1,39 @@
 import React from 'react'
-import DatePicker from 'material-ui/lib/date-picker/date-picker';
-import RaisedButton from 'material-ui/lib/raised-button';
+import DatePicker from 'material-ui/DatePicker';
+import RaisedButton from 'material-ui/RaisedButton';
 import {connect} from 'react-redux';
-import { reduxForm } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import {addMatchPromise} from '../actions'
-export const fields = [ 'matchDate' ]
 import { browserHistory } from 'react-router'
 
+const renderInput = field =>   // Define stateless component to render input and errors
+  <div>
+    <input style={styleInput} {...field.input} type={field.type}/> 
+    {field.meta.touched &&
+     field.meta.error &&
+     <div style={styleErrorLabel} className="error">{field.meta.error}</div>}
+  </div>
 
 class AddMatch extends React.Component {
     
     componentWillMount() {
-        if(!this.props.user) browserHistory.push('/login')
+        //if(!this.props.user) browserHistory.push('/login')
     }
+
+    
    
     render () {
-        const {fields: {matchDate}, error, handleSubmit} = this.props;
+        const { handleSubmit} = this.props;
+
         return (
             <form>
                 <div style={styleDiv}>
-                    <input
+                    <Field
                         type="date"
                         style={styleInput}
-                        {...matchDate}
+                        name="matchDate"
+                        component={renderInput}
                     />
-                    <div style={styleErrorLabel}>{matchDate.error || error}</div>
                 </div>
                 <br/>
                 <RaisedButton type="button" onClick={handleSubmit}>Guardar</RaisedButton>
@@ -32,6 +41,8 @@ class AddMatch extends React.Component {
         )
     }
 }
+
+
 
 const validate = values => {
     const errors = {}
@@ -57,38 +68,30 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default reduxForm({
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(reduxForm({
     form: 'addMatch',
-    fields,
     validate
-},
-mapStateToProps,
-mapDispatchToProps
-)(AddMatch)
+})(AddMatch))
 
 
 const styleDiv = {
         "fontSize":"16px",
-        //"lineHeight":"24px",
-        //"width":"256px",
-        //"height":"72px",
         "display":"inline-block",
         "position":"relative",
-        //"backgroundColor":"transparent",
         "fontFamily":"Roboto, sans-serif",
         "transition":"height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms"
 }
 
 const styleInput = {
-    //"tapHighlightColor":"rgba(0,0,0,0)",
     "padding":"0",
     "position":"relative",
     "height":"100%",
     "width":"100%",
     "border":"none",
     "outline":"none",
-    //"backgroundColor":"transparent",
-    //"color":"rgba(0, 0, 0, 0.87)",
     "font":"inherit",
     "boxSizing":"border-box",
     "marginTop":"14px",

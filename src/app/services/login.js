@@ -2,7 +2,6 @@ import Firebase from 'firebase';
 import { Link } from 'react-router'
 
 export function login(provider) {
-  console.log(provider)
   let err, usr;
   let firebaseRef = new Firebase('https://mypooldepadel.firebaseio.com');
   return firebaseRef.authWithOAuthPopup(provider);

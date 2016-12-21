@@ -1,13 +1,25 @@
 import React from 'react';
-import TextField from 'material-ui/lib/text-field';
-import RaisedButton from 'material-ui/lib/raised-button';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import {connect} from 'react-redux';
 import {addPlayerPromise} from '../actions'
 import {validateAddPlayer, getAddedPlayer} from '../reducers'
-import { reduxForm } from 'redux-form'
-export const fields = [ 'playerName' ]
+import { reduxForm, Field } from 'redux-form'
 import { browserHistory } from 'react-router'
-import Snackbar from 'material-ui/lib/Snackbar'
+import Snackbar from 'material-ui/Snackbar'
+
+const renderInput = field => {
+    return  (
+        <div>
+            <TextField id={field.id}
+                {...field.input}
+                hintText={field.hintText}
+                errorText={field.meta.touched && field.meta.error}
+                floatingLabelText={field.floatingLabelText}
+            />
+        </div>
+    )
+}
 
 class AddPlayerForm extends React.Component {
     
@@ -17,21 +29,22 @@ class AddPlayerForm extends React.Component {
     }
     
     componentWillMount() {
-        if(!this.props.user) browserHistory.push('/login')
+        //if(!this.props.user) browserHistory.push('/login')
     }
-    
+
     render() {
-        const {fields: {playerName}, error, handleSubmit, onCloseNotification} = this.props;
+        const {handleSubmit, onCloseNotification} = this.props;
         const saved = this.props.saved || false;
+
         return (
             <div>
                 <form>
-                    <TextField
+                    <Field
+                        name="playerName"
                         id="player"
                         hintText="Nombre"
-                        errorText={(playerName.touched && playerName.error) || error ? playerName.error || error : ''}
                         floatingLabelText="Nombre del jugador"
-                        {...playerName}
+                        component={renderInput}
                         /><br/>
                     <RaisedButton type="button" onClick={handleSubmit}>Guardar</RaisedButton>
                 </form>
@@ -63,18 +76,18 @@ const mapStateToProps = (st) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmit: (data) => 
+        onSubmit: (data) => {
             addPlayerPromise(data.playerName)
-            .then(dispatch({type: 'SAVED_SUCCESSFULLY', saved: true})),
+                .then(dispatch({type: 'SAVED_SUCCESSFULLY', saved: true}))
+        },
         onCloseNotification: () => dispatch({type: 'SAVED_SUCCESSFULLY', saved: false})
     }
 }
 
-export default reduxForm({
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(reduxForm({
   form: 'addPlayer',
-  fields,
   validate
-},
-mapStateToProps,
-mapDispatchToProps
-)(AddPlayerForm)
+})(AddPlayerForm))

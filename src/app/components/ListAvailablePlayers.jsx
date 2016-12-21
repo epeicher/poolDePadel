@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Avatar from 'material-ui/lib/avatar';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import ActionGrade from 'material-ui/lib/svg-icons/action/grade';
-import Colors from 'material-ui/lib/styles/colors';
+import Avatar from 'material-ui/Avatar';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+import Subheader from 'material-ui/Subheader';
+import ActionGrade from 'material-ui/svg-icons/action/Grade';
+import * as colors from 'material-ui/styles/colors';
 import { connect } from 'react-redux'
 import { getAvailablePlayers, updateSelectedPlayer } from '../actions'
 import _ from 'lodash'
+
 
 class ListAvailablePlayers extends React.Component { 
 
@@ -38,24 +40,20 @@ class ListAvailablePlayers extends React.Component {
     render() {
         
         const {availablePlayers, selectedPlayers} = this.props;
-
-        const styleSelected = {
-            backgroundColor:Colors.tealA700
-        };
         
         const styleStandard = {};
 
-        const iconSelected = <ActionGrade color={Colors.redA200} />;
+        const iconSelected = <ActionGrade color={colors.redA200} />;
         const iconNotSelected = <ActionGrade style={{display:'none'}} />;
 
         return (
         <div>
-            <List id={this.props.containerId} subheader="Jugadores disponibles">
+            <List id={this.props.containerId}>
+                <Subheader>Jugadores disponibles</Subheader>
             {    
             availablePlayers.map((player,idx) => {   
                 return (
                 <ListItem
-                    //style={player.selected ? styleSelected : styleStandard}
                     id={player.name}
                     key={player.name}
                     value={idx}

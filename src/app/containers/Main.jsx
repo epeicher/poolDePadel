@@ -3,9 +3,10 @@
  * which incorporates components providedby material-ui.
  */
 import React from 'react';
-import {deepOrange500} from 'material-ui/lib/styles/colors';
-import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
+import {deepOrange500} from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MenuAppBar from '../components/MenuAppBar';
 
 const styles = {
@@ -20,11 +21,7 @@ const styles = {
   },  
 };
 
-const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: deepOrange500,
-  },
-});
+const muiTheme = getMuiTheme();
 
 class Main extends React.Component {
 
