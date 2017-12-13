@@ -1,5 +1,7 @@
 # Application to Organise Padel Pools
 
+[![Documentation Status](https://readthedocs.org/projects/pooldepadel/badge/?version=latest)](http://pooldepadel.readthedocs.io/en/latest/?badge=latest)
+
 This is a training project that uses [Material-UI](http://callemall.github.io/material-ui/).
 
 ## Installation
